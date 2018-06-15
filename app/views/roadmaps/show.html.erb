@@ -1,0 +1,14 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Name:</strong>
+  <%= @roadmap.name %>
+</p>
+
+<p>
+  <strong>Description:</strong>
+  <%= @roadmap.description %>
+</p>
+
+<%= link_to 'Edit', edit_roadmap_path(@roadmap) %> |
+<%= link_to 'Back', roadmaps_path %>
