@@ -17,7 +17,7 @@
       <tr>
         <td><%= feature.name %></td>
         <td><%= feature.description %></td>
-        <td><%= feature.initiative %></td>
+        <td><%= link_to feature.initiative_id, initiative_path(feature.initiative_id) %></td>
         <td><%= link_to 'Show', feature %></td>
         <td><%= link_to 'Edit', edit_feature_path(feature) %></td>
         <td><%= link_to 'Destroy', feature, method: :delete, data: { confirm: 'Are you sure?' } %></td>

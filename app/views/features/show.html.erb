@@ -12,8 +12,18 @@
 
 <p>
   <strong>Initiative:</strong>
-  <%= @feature.initiative %>
+  <%= link_to @feature.initiative_id, initiative_path(@feature.initiative_id) %>
 </p>
 
 <%= link_to 'Edit', edit_feature_path(@feature) %> |
-<%= link_to 'Back', features_path %>
+<%= link_to 'Features', features_path %>
+<br>
+<p>
+  <strong>Teams:</strong>
+  <%= Team.where(feature_id: @feature.id).find_each do |team| %>
+  <p>
+    <strong>  Name:</strong>
+    <%= link_to team.name, team_path(team) %>
+  </p>
+  <% end %>
+</p>

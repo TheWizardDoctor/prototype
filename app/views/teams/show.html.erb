@@ -12,8 +12,8 @@
 
 <p>
   <strong>Feature:</strong>
-  <%= @team.feature %>
+  <%= link_to @team.feature_id, feature_path(@team.feature_id) %>
 </p>
 
 <%= link_to 'Edit', edit_team_path(@team) %> |
-<%= link_to 'Back', teams_path %>
+<%= link_to 'Teams', teams_path %>

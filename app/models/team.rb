@@ -1,3 +1,4 @@
 class Team < ApplicationRecord
-  belongs_to :feature
+  belongs_to :feature, optional: true
+
 end

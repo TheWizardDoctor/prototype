@@ -65,6 +65,7 @@ class RoadmapsController < ApplicationController
     # Use callbacks to share common setup or constraints between actions.
     def set_roadmap
       @roadmap = Roadmap.find(params[:id])
+      @initcount = Initiative.group(:roadmap_id).count
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.

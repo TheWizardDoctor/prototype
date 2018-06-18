@@ -11,4 +11,14 @@
 </p>
 
 <%= link_to 'Edit', edit_roadmap_path(@roadmap) %> |
-<%= link_to 'Back', roadmaps_path %>
+<%= link_to 'Roadmaps', roadmaps_path %>
+<br>
+<p>
+  <strong>Initiatives:</strong>
+  <%= Initiative.where(roadmap_id: @roadmap.id).find_each do |init| %>
+  <p>
+    <strong>  Name:</strong>
+    <%= link_to init.name, initiative_path(init) %>
+  </p>
+  <% end %>
+</p>
