@@ -15,6 +15,18 @@ $gray-medium-light: #eaeaea;
 }
 
 /* universal */
+a {
+  text-decoration: underline;
+  :link {
+    color: blue;
+  }
+  :visited {
+    color: purple;
+  }
+  :hover {
+    color: darkgreen;
+  }
+}
 
 body {
   padding-top: 60px;
@@ -62,6 +74,31 @@ p {
   line-height: 1.7em;
 }
 
+/* header */
+
+#home {
+  float: left;
+  margin-top: 8px;
+  margin-right: 10px;
+  font-size: 1.7em;
+  color: white;
+  text-transform: uppercase;
+  letter-spacing: -1px;
+  padding-top: 9px;
+  font-weight: bold;
+  text-decoration: none;
+}
+
+#bootstrap-override header {
+  a {
+    color:white;
+    text-decoration: none;
+    &:hover {
+      color: green;
+    }
+  }
+}
+
 /* footer */
 
 footer {
@@ -69,12 +106,6 @@ footer {
   padding-top: 5px;
   border-top: 1px solid $gray-medium-light;
   color: $gray-light;
-  a {
-    color: $gray;
-    &:hover {
-      color: $gray-darker;
-    }
-  }
   small {
     float: left;
   }

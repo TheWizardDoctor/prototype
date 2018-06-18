@@ -54,6 +54,8 @@ class InitiativesController < ApplicationController
   # DELETE /initiatives/1
   # DELETE /initiatives/1.json
   def destroy
+    @count = Feature.group(:initiative_id).count
+    raise "Cannot delete Initiatives that have Features" unless @count[@initiative.id] == nil
     @initiative.destroy
     respond_to do |format|
       format.html { redirect_to initiatives_url, notice: 'Initiative was successfully destroyed.' }

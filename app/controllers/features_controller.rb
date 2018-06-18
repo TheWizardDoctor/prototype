@@ -54,6 +54,8 @@ class FeaturesController < ApplicationController
   # DELETE /features/1
   # DELETE /features/1.json
   def destroy
+    @count = Team.group(:feature_id).count
+    raise "Cannot delete Features that have Teams" unless @count[@feature.id] == nil
     @feature.destroy
     respond_to do |format|
       format.html { redirect_to features_url, notice: 'Feature was successfully destroyed.' }

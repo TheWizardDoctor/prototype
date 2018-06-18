@@ -1,6 +1,5 @@
 class RoadmapsController < ApplicationController
   before_action :set_roadmap, only: [:show, :edit, :update, :destroy]
-
   # GET /roadmaps
   # GET /roadmaps.json
   def index
@@ -54,6 +53,8 @@ class RoadmapsController < ApplicationController
   # DELETE /roadmaps/1
   # DELETE /roadmaps/1.json
   def destroy
+    @initcount = Initiative.group(:roadmap_id).count
+    raise "Cannot delete Roadmaps that have Initiatives" unless @initcount[@roadmap.id] == nil
     @roadmap.destroy
     respond_to do |format|
       format.html { redirect_to roadmaps_url, notice: 'Roadmap was successfully destroyed.' }
@@ -65,7 +66,6 @@ class RoadmapsController < ApplicationController
     # Use callbacks to share common setup or constraints between actions.
     def set_roadmap
       @roadmap = Roadmap.find(params[:id])
-      @initcount = Initiative.group(:roadmap_id).count
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.
