@@ -1,2 +1,0 @@
-class Quater < ApplicationRecord
-end

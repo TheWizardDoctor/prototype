@@ -1,23 +1,52 @@
 <p id="notice"><%= notice %></p>
+<% @quater == nil ? @quater = 'Q1' : @quater = @quater %>
+<div class="dropdown">
+<button onclick="myFunction()" class="dropbtn">Quater</button>
+  <div id="myDropdown" class="dropdown-content">
+    <input type="text" placeholder="Search.." id="myInput" onkeyup="filterFunction()">
+    <%= link_to 'Q1 2018', {:controller => "teams", :action => "index", :quater => 'Q1' } %>
+    <%= link_to 'Q2 2018', {:controller => "teams", :action => "index", :quater => 'Q2' } %>
+    <%= link_to 'Q3 2018', {:controller => "teams", :action => "index", :quater => 'Q3' } %>
+    <%= link_to 'Q4 2018', {:controller => "teams", :action => "index", :quater => 'Q4' } %>
+  </div>
+</div>
 
 <h1>Teams</h1>
 
-<table>
+<table id= 'teamstable'>
   <thead>
     <tr>
       <th>Name</th>
       <th>Description</th>
       <th>Feature</th>
+      <th>Percentage of Allocated Resources:</th>
       <th colspan="3"></th>
     </tr>
   </thead>
-
   <tbody>
     <% @teams.each do |team| %>
+    <% resourcesValue = 0 %>
+      <% Connector.where(team_id: team.id).find_each do |n|%>
+      <% feat = n.feature_id %>
+      <% if Feature.find_by(id: feat).quater == @quater %>
+      <% resourcesValue += n.investment %>
+      <% end %>
+      <% end %>
       <tr>
         <td><%= team.name %></td>
         <td><%= team.description %></td>
         <td><%= link_to team.feature_id, feature_path(team.feature_id) %></td>
+        <% if resourcesValue <= 25 %>
+        <td id='hardly'><%= resourcesValue %></td>
+        <% elsif resourcesValue <= 50 %>
+        <td id='little'><%= resourcesValue %></td>
+        <% elsif resourcesValue <= 75%>
+        <td id='medium'><%= resourcesValue %></td>
+        <% elsif resourcesValue <= 100%>
+        <td id='almost'><%= resourcesValue %></td>
+        <% else %>
+        <td id='over'><%= resourcesValue %></td>
+        <%end%>
         <td><%= link_to 'Show', team %></td>
         <td><%= link_to 'Edit', edit_team_path(team) %></td>
         <td><%= link_to 'Destroy', team, method: :delete, data: { confirm: 'Are you sure?' } %></td>

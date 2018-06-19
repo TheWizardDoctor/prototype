@@ -1,5 +1,17 @@
 <p id="notice"><%= notice %></p>
 
+<% @quater == nil ? @quater = 'Q1' : @quater = @quater %>
+<div class="dropdown">
+<button onclick="myFunction()" class="dropbtn">Quater</button>
+  <div id="myDropdown" class="dropdown-content">
+    <input type="text" placeholder="Search.." id="myInput" onkeyup="filterFunction()">
+    <%= link_to 'Q1 2018', {:controller => "teams", :action => "show", :quater => 'Q1' } %>
+    <%= link_to 'Q2 2018', {:controller => "teams", :action => "show", :quater => 'Q2' } %>
+    <%= link_to 'Q3 2018', {:controller => "teams", :action => "show", :quater => 'Q3' } %>
+    <%= link_to 'Q4 2018', {:controller => "teams", :action => "show", :quater => 'Q4' } %>
+  </div>
+</div>
+
 <p>
   <strong>Name:</strong>
   <%= @team.name %>
@@ -8,11 +20,27 @@
 <p>
   <strong>Description:</strong>
   <%= @team.description %>
+  <br>
+  <% resourcesValue = 0 %>
+  <% feats = [] %>
+  <% Connector.where(team_id: @team.id).find_each do |n|%>
+    <% feat = n.feature_id %>
+    <% if Feature.find_by(id: feat).quater == @quater %>
+      <% feats += [Feature.find_by(id: feat)] %>
+      <% resourcesValue += n.investment %>
+    <% end %>
+  <% end %>
+  <strong>Percentage of Allocated Resources:</strong><%= " #{resourcesValue}%" %>
 </p>
 
 <p>
+  <% feats.each do |n| %>
+  <% feature = Feature.find_by(id: n) %>
   <strong>Feature:</strong>
-  <%= link_to @team.feature_id, feature_path(@team.feature_id) %>
+  <%= link_to feature.name, feature_path(feature.id) %> | <strong> Allocated: </strong>
+  <%="#{Connector.find_by(team_id: @team.id, feature_id: n).investment}%" %>
+  <br>
+  <% end %>
 </p>
 
 <%= link_to 'Edit', edit_team_path(@team) %> |

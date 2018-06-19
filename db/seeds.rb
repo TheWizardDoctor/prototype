@@ -26,7 +26,7 @@ z = 0
       feat = "Feature #{y}"
       feat_desc = "This is Feature #{y}. It should have 5 Teams"
       id_f = x.to_i
-      Feature.create!(name: feat, description: feat_desc, initiative_id: id_f)
+      Feature.create!(name: feat, description: feat_desc, initiative_id: id_f, quater: 'Q1')
       5.times do |k|
         z += 1
         team = "Team #{z}"
@@ -37,6 +37,12 @@ z = 0
     end
   end
 end
+5.times do |i|
+  5.times do |j|
+    Connector.create!(team_id: i+1, feature_id: j+1, investment: 15)
+  end
+end
+
 #=end
 =begin
 x = 0

@@ -24,6 +24,7 @@
   <p>
     <strong>  Name:</strong>
     <%= link_to team.name, team_path(team) %>
-  </p>
+     | <strong>Percentage invested: </strong>
+     <%= "#{Connector.find_by(feature_id: @feature.id, team_id: team.id).investment}%" %>
   <% end %>
 </p>

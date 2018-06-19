@@ -1,6 +1,6 @@
 require 'test_helper'
 
-class QuaterTest < ActiveSupport::TestCase
+class ConnectorControllerTest < ActionDispatch::IntegrationTest
   # test "the truth" do
   #   assert true
   # end
