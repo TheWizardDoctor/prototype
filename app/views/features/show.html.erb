@@ -15,8 +15,14 @@
   <%= link_to @feature.initiative_id, initiative_path(@feature.initiative_id) %>
 </p>
 
+<p>
+  <strong>Quater:</strong>
+  <%= @feature.quater %>
+</p>
+
 <%= link_to 'Edit', edit_feature_path(@feature) %> |
 <%= link_to 'Features', features_path %>
+<br>
 <br>
 <p>
   <strong>Teams:</strong>
