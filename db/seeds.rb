@@ -32,14 +32,10 @@ z = 0
         team = "Team #{z}"
         team_desc = "This is Team #{z}."
         id_t = y.to_i
-        Team.create!(name: team, description: team_desc, feature_id: id_t)
+        Team.create!(name: team, description: team_desc)
+        Connector.create!(team_id: z, feature_id: id_t, investment: 15)
       end
     end
-  end
-end
-5.times do |i|
-  5.times do |j|
-    Connector.create!(team_id: i+1, feature_id: j+1, investment: 15)
   end
 end
 

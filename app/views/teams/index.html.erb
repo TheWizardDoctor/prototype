@@ -28,6 +28,8 @@
     <% resourcesValue = 0 %>
       <% Connector.where(team_id: team.id).find_each do |n|%>
       <% feat = n.feature_id %>
+      <% @feats = [] %>
+      <% @feats += [feat] %>
       <% if Feature.find_by(id: feat).quater == @quater %>
       <% resourcesValue += n.investment %>
       <% end %>
@@ -35,7 +37,9 @@
       <tr>
         <td><%= team.name %></td>
         <td><%= team.description %></td>
-        <td><%= link_to team.feature_id, feature_path(team.feature_id) %></td>
+        <td><% @feats.each do |f| %>
+        <%= link_to f, feature_path(f)%></td>
+        <%end%>
         <% if resourcesValue <= 25 %>
         <td id='hardly'><%= resourcesValue %></td>
         <% elsif resourcesValue <= 50 %>

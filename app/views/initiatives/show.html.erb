@@ -21,7 +21,7 @@
 <br>
 <p>
   <strong>Features:</strong>
-  <%= Feature.where(initiative_id: @initiative.id).find_each do |feat| %>
+  <% Feature.where(initiative_id: @initiative.id).find_each do |feat| %>
   <p>
     <strong>  Name:</strong>
     <%= link_to feat.name, feature_path(feat) %>

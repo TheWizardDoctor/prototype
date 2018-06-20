@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_06_19_160045) do
+ActiveRecord::Schema.define(version: 2018_06_19_169999) do
 
   create_table "connectors", force: :cascade do |t|
     t.integer "feature_id"
@@ -24,7 +24,7 @@ ActiveRecord::Schema.define(version: 2018_06_19_160045) do
     t.string "name"
     t.text "description"
     t.integer "initiative_id"
-    t.text "quater", default: 'Q1'
+    t.text "quater", default: "Q1"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["initiative_id"], name: "index_features_on_initiative_id"
@@ -49,10 +49,8 @@ ActiveRecord::Schema.define(version: 2018_06_19_160045) do
   create_table "teams", force: :cascade do |t|
     t.string "name"
     t.text "description"
-    t.integer "feature_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["feature_id"], name: "index_teams_on_feature_id"
   end
 
 end

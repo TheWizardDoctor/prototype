@@ -15,7 +15,7 @@
 <br>
 <p>
   <strong>Initiatives:</strong>
-  <%= Initiative.where(roadmap_id: @roadmap.id).find_each do |init| %>
+  <% Initiative.where(roadmap_id: @roadmap.id).find_each do |init| %>
   <p>
     <strong>  Name:</strong>
     <%= link_to init.name, initiative_path(init) %>

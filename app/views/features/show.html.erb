@@ -20,11 +20,13 @@
 <br>
 <p>
   <strong>Teams:</strong>
-  <%= Team.where(feature_id: @feature.id).find_each do |team| %>
-  <p>
+  <% Connector.where(feature_id: @feature.id).find_each do |c| %>
+    <% team = Team.find_by(id: c.team_id) %>
+    <p>
     <strong>  Name:</strong>
     <%= link_to team.name, team_path(team) %>
      | <strong>Percentage invested: </strong>
-     <%= "#{Connector.find_by(feature_id: @feature.id, team_id: team.id).investment}%" %>
+     <%= "#{c.investment}%" %>
+   </p>
   <% end %>
 </p>

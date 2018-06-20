@@ -34,11 +34,11 @@
 </p>
 
 <p>
-  <% feats.each do |n| %>
-  <% feature = Feature.find_by(id: n) %>
+  <% feats.each do |i| %>
+  <% feature = Feature.find_by(id: i) %>
   <strong>Feature:</strong>
   <%= link_to feature.name, feature_path(feature.id) %> | <strong> Allocated: </strong>
-  <%="#{Connector.find_by(team_id: @team.id, feature_id: n).investment}%" %>
+  <%="#{Connector.find_by(team_id: @team.id, feature_id: i).investment}%" %>
   <br>
   <% end %>
 </p>
