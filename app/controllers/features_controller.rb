@@ -17,6 +17,25 @@ class FeaturesController < ApplicationController
     @feature = Feature.new
   end
 
+  def new_connector
+    set_feature
+    @connector = Connector.new
+  end
+
+  def connector_create
+    @connector = Connector.new(connector_params)
+
+    respond_to do |format|
+      if @connector.save
+        format.html { redirect_to root_path, notice: 'Team was successfully added.' }
+        format.json { render :show, status: :created, location: @connector }
+      else
+        format.html { render :new }
+        format.json { render json: @connector.errors, status: :unprocessable_entity }
+      end
+    end
+  end
+
   # GET /features/1/edit
   def edit
   end
@@ -72,5 +91,9 @@ class FeaturesController < ApplicationController
     # Never trust parameters from the scary internet, only allow the white list through.
     def feature_params
       params.require(:feature).permit(:name, :description, :initiative_id, :quater)
+    end
+
+    def connector_params
+      params.require(:connector).permit(:team_id)
     end
 end

@@ -1,6 +1,7 @@
 Rails.application.routes.draw do
   root 'home#index'
-  resources :quaters
+  get 'features/add/:id', to: 'features#new_connector', as: 'features/add'
+  post '/connectors', to: 'features#connector_create'
   resources :teams
   resources :features
   resources :initiatives
