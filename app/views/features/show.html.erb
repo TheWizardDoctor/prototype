@@ -32,7 +32,8 @@
     <strong>  Name:</strong>
     <%= link_to team.name, team_path(team) %>
      | <strong>Percentage invested: </strong>
-     <%= "#{c.investment}%" %>
+     <%= "#{c.investment}% | " %>
+     <%= link_to 'change', investment_path(c) %>
    </p>
   <% end %>
   <strong>Add a Team:</strong>

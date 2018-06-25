@@ -15,6 +15,7 @@ yeet
   <div class="field">
     <%= form.label :team_id %>
     <%= form.text_field :team_id %>
+    <%= form.hidden_field :feature_id, :value => @feature.id %>
   </div>
 
   <div class="actions">

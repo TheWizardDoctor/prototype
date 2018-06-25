@@ -36,6 +36,22 @@ class FeaturesController < ApplicationController
     end
   end
 
+  def investment
+    $inv = Connector.find(params[:id])
+  end
+
+  def investment_update
+    respond_to do |format|
+      if $inv.update(investment_params)
+        format.html { redirect_to root_path, notice: 'Feature was successfully updated.' }
+        format.json { render :show, status: :ok, location: root_path }
+      else
+        format.html { render :edit }
+        format.json { render json: $inv.errors, status: :unprocessable_entity }
+      end
+    end
+  end
+
   # GET /features/1/edit
   def edit
   end
@@ -94,6 +110,11 @@ class FeaturesController < ApplicationController
     end
 
     def connector_params
-      params.require(:connector).permit(:team_id)
+      params.require(:connector).permit(:team_id, :feature_id)
     end
+
+    def investment_params
+      params.require(:connector).permit(:investment)
+    end
+
 end

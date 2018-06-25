@@ -26,13 +26,13 @@
   <tbody>
     <% @teams.each do |team| %>
     <% resourcesValue = 0 %>
+    <% @feats = [] %>
       <% Connector.where(team_id: team.id).find_each do |n|%>
-      <% feat = n.feature_id %>
-      <% @feats = [] %>
-      <% @feats += [feat] %>
-      <% if Feature.find_by(id: feat).quater == @quater %>
-      <% resourcesValue += n.investment %>
-      <% end %>
+        <% feat = n.feature_id %>
+        <% @feats += [feat] %>
+        <% if Feature.find_by(id: feat).quater == @quater %>
+          <% resourcesValue += n.investment %>
+        <% end %>
       <% end %>
       <tr>
         <td><%= team.name %></td>
