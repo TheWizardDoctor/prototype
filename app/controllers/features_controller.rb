@@ -27,10 +27,11 @@ class FeaturesController < ApplicationController
 
     respond_to do |format|
       if @connector.save
-        format.html { redirect_to root_path, notice: 'Team was successfully added.' }
+        format.html { redirect_to feature_path(@connector.feature_id), notice: 'Team was successfully added.' }
         format.json { render :show, status: :created, location: @connector }
       else
-        format.html { render :new }
+        @feature = Feature.find(@connector.feature_id)
+        format.html { render :new_connector}
         format.json { render json: @connector.errors, status: :unprocessable_entity }
       end
     end
@@ -43,10 +44,10 @@ class FeaturesController < ApplicationController
   def investment_update
     respond_to do |format|
       if $inv.update(investment_params)
-        format.html { redirect_to root_path, notice: 'Feature was successfully updated.' }
+        format.html { redirect_to feature_path($inv.feature_id), notice: 'Investment was successfully updated.' }
         format.json { render :show, status: :ok, location: root_path }
       else
-        format.html { render :edit }
+        format.html { render :investment }
         format.json { render json: $inv.errors, status: :unprocessable_entity }
       end
     end
