@@ -34,6 +34,7 @@
      | <strong>Percentage invested: </strong>
      <%= "#{i.investment}% | " %>
      <%= link_to 'change', edit_investment_path(i) %>
+     | <%= link_to 'remove', i, method: :delete, data: { confirm: 'Are you sure?' } %>
    </p>
   <% end %>
   <strong>Add a Team:</strong>

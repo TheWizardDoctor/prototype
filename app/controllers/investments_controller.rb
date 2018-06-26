@@ -63,7 +63,7 @@ class InvestmentsController < ApplicationController
   def destroy
     @investment.destroy
     respond_to do |format|
-      format.html { redirect_to investments_url, notice: 'Investment was successfully destroyed.' }
+      format.html { redirect_to feature_path(@investment.feature_id), notice: 'Investment was successfully destroyed.' }
       format.json { head :no_content }
     end
   end
