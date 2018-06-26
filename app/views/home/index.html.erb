@@ -1,1 +1,44 @@
+<script type="text/javascript">
+  CollapsibleLists.apply();
+</script>
 <h1> Hello! idk what im going to put here ¯\_(ツ)_/¯ </h1>
+<ul class="collapsibleList">
+  <li>
+    <%= link_to Roadmap.find(1).name, Roadmap.find(1) %>
+    <ul>
+      <li>Child item</li>
+      <li>Child item</li>
+    </ul>
+  </li>
+  <li>
+    Parent item
+    <ul>
+      <li>Child item</li>
+      <li>Child item</li>
+    </ul>
+  </li>
+</ul>
+
+<ul class="collapsibleList">
+  <% @roadmaps.each do |roadmap| %>
+    <li><%= link_to roadmap.name, roadmap %>
+      <ul>
+        <% Initiative.where(roadmap_id: roadmap.id).each do |init| %>
+          <li><%= link_to init.name, init %>
+            <ul>
+              <% Feature.where(initiative_id: init.id).each do |feature| %>
+                <li><%= link_to feature.name, feature %>
+                  <ul>
+                    <% Investment.where(feature_id: feature.id).each do |team|%>
+                      <li><%= link_to Team.find(team.team_id).name, team %>
+                    <%end%>
+                  </ul>
+                </li>
+              <%end%>
+            </ul>
+          </li>
+        <% end %>
+      </ul>
+    </li>
+  <%end%>
+</ul>

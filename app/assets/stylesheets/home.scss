@@ -194,3 +194,19 @@ input {
 .dropdown a:hover {background-color: #ddd;}
 
 .show {display: block;}
+
+// DROP DOWN LISTS FOR HOME INDEX
+.collapsibleList li{
+  list-style-image : url('button.png');
+  cursor           : auto;
+}
+
+li.collapsibleListOpen{
+  list-style-image : url('button-open.png');
+  cursor           : pointer;
+}
+
+li.collapsibleListClosed{
+  list-style-image : url('button-closed.png');
+  cursor           : pointer;
+}
