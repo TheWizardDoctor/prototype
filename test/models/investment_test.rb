@@ -1,6 +1,6 @@
 require 'test_helper'
 
-class ConnectorControllerTest < ActionDispatch::IntegrationTest
+class InvestmentTest < ActiveSupport::TestCase
   # test "the truth" do
   #   assert true
   # end

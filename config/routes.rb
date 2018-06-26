@@ -1,9 +1,8 @@
 Rails.application.routes.draw do
   root 'home#index'
-  get 'features/add/:id', to: 'features#new_connector', as: 'features/add'
-  post '/connectors', to: 'features#connector_create'
-  get 'features/investment/:id', to: 'features#investment', as: 'investment'
-  patch '/connector', to: 'features#investment_update'
+  get 'investments/new/:id', to: 'investments#new', as: 'new_investment'
+  get 'investments/:id/edit', to: 'investments#edit', as: 'edit_investment'
+  resources :investments
   resources :teams
   resources :features
   resources :initiatives

@@ -10,15 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_06_19_169999) do
-
-  create_table "connectors", force: :cascade do |t|
-    t.integer "feature_id"
-    t.integer "team_id"
-    t.integer "investment", default: 0
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-  end
+ActiveRecord::Schema.define(version: 2018_06_26_134101) do
 
   create_table "features", force: :cascade do |t|
     t.string "name"
@@ -37,6 +29,14 @@ ActiveRecord::Schema.define(version: 2018_06_19_169999) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["roadmap_id"], name: "index_initiatives_on_roadmap_id"
+  end
+
+  create_table "investments", force: :cascade do |t|
+    t.integer "feature_id"
+    t.integer "team_id"
+    t.integer "investment", default: 0
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "roadmaps", force: :cascade do |t|

@@ -26,16 +26,16 @@
 <br>
 <p>
   <strong>Teams:</strong>
-  <% Connector.where(feature_id: @feature.id).find_each do |c| %>
-    <% team = Team.find_by(id: c.team_id) %>
+  <% Investment.where(feature_id: @feature.id).find_each do |i| %>
+    <% team = Team.find(i.team_id) %>
     <p>
     <strong>  Name:</strong>
     <%= link_to team.name, team_path(team) %>
      | <strong>Percentage invested: </strong>
-     <%= "#{c.investment}% | " %>
-     <%= link_to 'change', investment_path(c) %>
+     <%= "#{i.investment}% | " %>
+     <%= link_to 'change', edit_investment_path(i) %>
    </p>
   <% end %>
   <strong>Add a Team:</strong>
-  <%= link_to('+', features_add_path(@feature))%>
+  <%= link_to('+', new_investment_path(@feature))%>
 </p>

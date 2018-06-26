@@ -23,7 +23,7 @@
   <br>
   <% resourcesValue = 0 %>
   <% feats = [] %>
-  <% Connector.where(team_id: @team.id).find_each do |n|%>
+  <% Investment.where(team_id: @team.id).find_each do |n|%>
     <% feat = n.feature_id %>
     <% if Feature.find_by(id: feat).quater == @quater %>
       <% feats += [Feature.find_by(id: feat)] %>
@@ -38,7 +38,7 @@
   <% feature = Feature.find_by(id: i) %>
   <strong>Feature:</strong>
   <%= link_to feature.name, feature_path(feature.id) %> | <strong> Allocated: </strong>
-  <%="#{Connector.find_by(team_id: @team.id, feature_id: i).investment}%" %>
+  <%="#{Investment.find_by(team_id: @team.id, feature_id: i).investment}%" %>
   <br>
   <% end %>
 </p>

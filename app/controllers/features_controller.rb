@@ -17,42 +17,6 @@ class FeaturesController < ApplicationController
     @feature = Feature.new
   end
 
-  def new_connector
-    set_feature
-    @connector = Connector.new
-  end
-
-  def connector_create
-    @connector = Connector.new(connector_params)
-
-    respond_to do |format|
-      if @connector.save
-        format.html { redirect_to feature_path(@connector.feature_id), notice: 'Team was successfully added.' }
-        format.json { render :show, status: :created, location: @connector }
-      else
-        @feature = Feature.find(@connector.feature_id)
-        format.html { render :new_connector}
-        format.json { render json: @connector.errors, status: :unprocessable_entity }
-      end
-    end
-  end
-
-  def investment
-    $inv = Connector.find(params[:id])
-  end
-
-  def investment_update
-    respond_to do |format|
-      if $inv.update(investment_params)
-        format.html { redirect_to feature_path($inv.feature_id), notice: 'Investment was successfully updated.' }
-        format.json { render :show, status: :ok, location: root_path }
-      else
-        format.html { render :investment }
-        format.json { render json: $inv.errors, status: :unprocessable_entity }
-      end
-    end
-  end
-
   # GET /features/1/edit
   def edit
   end
@@ -90,7 +54,7 @@ class FeaturesController < ApplicationController
   # DELETE /features/1
   # DELETE /features/1.json
   def destroy
-    @count = Connector.group(:feature_id).count
+    @count = Investment.group(:feature_id).count
     raise "Cannot delete Features that have Teams" unless @count[@feature.id] == nil
     @feature.destroy
     respond_to do |format|
@@ -108,14 +72,6 @@ class FeaturesController < ApplicationController
     # Never trust parameters from the scary internet, only allow the white list through.
     def feature_params
       params.require(:feature).permit(:name, :description, :initiative_id, :quater)
-    end
-
-    def connector_params
-      params.require(:connector).permit(:team_id, :feature_id)
-    end
-
-    def investment_params
-      params.require(:connector).permit(:investment)
     end
 
 end

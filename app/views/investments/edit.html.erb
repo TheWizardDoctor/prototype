@@ -1,0 +1,22 @@
+<%= form_with(model: @investment, local: true) do |form| %>
+  <% errors = params[:errors] %>
+  <% if errors != nil %>
+    <div id="error_explanation">
+      <h2><%= pluralize(errors.count, "error") %> prohibited this Team from being saved:</h2>
+      <ul>
+      <% errors.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+<h1><%= "Team: #{@investment.team_id} | Feature: #{@investment.feature_id} | Quater: #{Feature.find(@investment.feature_id).quater}" %></h1>
+  <div class="field">
+    <%= form.label :investment %>
+    <%= form.text_field :investment %>
+  </div>
+
+  <div class="actions">
+    <%= form.submit %>
+  </div>
+<% end %>

@@ -27,7 +27,7 @@
     <% @teams.each do |team| %>
     <% resourcesValue = 0 %>
     <% @feats = [] %>
-      <% Connector.where(team_id: team.id).find_each do |n|%>
+      <% Investment.where(team_id: team.id).find_each do |n|%>
         <% feat = n.feature_id %>
         <% @feats += [feat] %>
         <% if Feature.find_by(id: feat).quater == @quater %>

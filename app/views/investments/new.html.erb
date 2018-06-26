@@ -1,11 +1,10 @@
-yeet
-<%= form_with(model: @connector, local: true) do |form| %>
-  <% if @connector.errors.any? %>
+<%= form_with(model: @investment, local: true) do |form| %>
+  <% errors = params[:errors] %>
+  <% if errors != nil %>
     <div id="error_explanation">
-      <h2><%= pluralize(@connector.errors.count, "error") %> prohibited this Team from being saved:</h2>
-
+      <h2><%= pluralize(errors.count, "error") %> prohibited this Team from being saved:</h2>
       <ul>
-      <% @connector.errors.full_messages.each do |message| %>
+      <% errors.each do |message| %>
         <li><%= message %></li>
       <% end %>
       </ul>
@@ -16,6 +15,7 @@ yeet
     <%= form.label :team_id %>
     <%= form.text_field :team_id %>
     <%= form.hidden_field :feature_id, :value => @feature.id %>
+    <%= form.hidden_field :investment, :value => 0 %>
   </div>
 
   <div class="actions">
