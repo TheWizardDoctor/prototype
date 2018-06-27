@@ -196,17 +196,37 @@ input {
 .show {display: block;}
 
 // DROP DOWN LISTS FOR HOME INDEX
+
+.middlething {
+  width: 50%;
+}
+.green {
+  background-color: palegreen;
+  padding: 2px;
+}
 .collapsibleList li{
   list-style-image : url('button.png');
-  cursor           : auto;
+  cursor : auto;
+  border-style: outset;
+  padding: 20px;
+  padding-right: 0px;
+  margin-top: 4px;
 }
 
 li.collapsibleListOpen{
   list-style-image : url('button-open.png');
-  cursor           : pointer;
+  cursor : pointer;
+  border-style: inset;
+  padding: 20px;
+  padding-right: 0px;
+  margin-top: 4px;
 }
 
 li.collapsibleListClosed{
   list-style-image : url('button-closed.png');
-  cursor           : pointer;
+  cursor : pointer;
+  border-style: outset;
+  padding: 20px;
+  padding-right: 0px;
+  margin-top: 4px;
 }

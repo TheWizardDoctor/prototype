@@ -1,3 +1,6 @@
+<script type="text/javascript">
+  CollapsibleLists.apply();
+</script>
 <p id="notice"><%= notice %></p>
 <% @quater == nil ? @quater = 'Q1' : @quater = @quater %>
 <div class="dropdown">
@@ -12,52 +15,30 @@
 </div>
 
 <h1>Teams</h1>
-
-<table id= 'teamstable'>
-  <thead>
-    <tr>
-      <th>Name</th>
-      <th>Description</th>
-      <th>Feature</th>
-      <th>Percentage of Allocated Resources:</th>
-      <th colspan="3"></th>
-    </tr>
-  </thead>
-  <tbody>
-    <% @teams.each do |team| %>
-    <% resourcesValue = 0 %>
-    <% @feats = [] %>
-      <% Investment.where(team_id: team.id).find_each do |n|%>
-        <% feat = n.feature_id %>
-        <% @feats += [feat] %>
-        <% if Feature.find_by(id: feat).quater == @quater %>
-          <% resourcesValue += n.investment %>
-        <% end %>
-      <% end %>
-      <tr>
-        <td><%= team.name %></td>
-        <td><%= team.description %></td>
-        <td><% @feats.each do |f| %>
-        <%= link_to "#{f}", feature_path(f)%>
-        <%end%></td>
-        <% if resourcesValue <= 25 %>
-        <td id='hardly'><%= resourcesValue %></td>
-        <% elsif resourcesValue <= 50 %>
-        <td id='little'><%= resourcesValue %></td>
-        <% elsif resourcesValue <= 75%>
-        <td id='medium'><%= resourcesValue %></td>
-        <% elsif resourcesValue <= 100%>
-        <td id='almost'><%= resourcesValue %></td>
-        <% else %>
-        <td id='over'><%= resourcesValue %></td>
-        <%end%>
-        <td><%= link_to 'Show', team %></td>
-        <td><%= link_to 'Edit', edit_team_path(team) %></td>
-        <td><%= link_to 'Destroy', team, method: :delete, data: { confirm: 'Are you sure?' } %></td>
-      </tr>
-    <% end %>
-  </tbody>
-</table>
+<ul class="collapsibleList">
+  <% @teams.each do |team| %>
+  <% create_lists(team) %><% investment_values = 0 %>
+  <li class="middlething"><%= "#{team.name}:" %><div class="pull-right"> <% Investment.where(team_id: team.id).each {|j| investment_values += j.investment} %><%= investment_values%></div>
+    <ul><% @roadmaps.each do |map, value| %>
+      <li><%= map.name %><div class="pull-right"> <%= @roadmaps[map] %> </div>
+        <ul><% @initiatives.each do |init, value| %>
+          <% if init.roadmap_id == map.id %>
+          <li><%= init.name %><div class="pull-right"> <%= @initiatives[init] %></div>
+            <ul><% @features.each do |feat, value| %>
+              <% if feat.initiative_id == init.id %>
+              <li><%= feat.name %> <div class="pull-right"> <%= @features[feat] %> </div>
+              </li>
+              <%end%><%end%>
+            </ul>
+          </li>
+          <%end%><%end%>
+        </ul>
+      </li>
+      <%end%>
+    </ul>
+  </div></li>
+  <%end%>
+</ul>
 
 <br>
 
