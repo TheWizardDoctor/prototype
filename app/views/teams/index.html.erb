@@ -1,11 +1,8 @@
-<script type="text/javascript">
-  CollapsibleLists.apply();
-</script>
 <p id="notice"><%= notice %></p>
 <% @quater == nil ? @quater = 'Q1' : @quater = @quater %>
 <div class="dropdown">
-<button onclick="myFunction()" class="dropbtn">Quater</button>
-  <div id="myDropdown" class="dropdown-content">
+<button onclick="dropButton()" class="dropbtn">Quater</button>
+  <div id="dropbox" class="dropdown-content">
     <input type="text" placeholder="Search.." id="myInput" onkeyup="filterFunction()">
     <%= link_to 'Q1 2018', {:controller => "teams", :action => "index", :quater => 'Q1' } %>
     <%= link_to 'Q2 2018', {:controller => "teams", :action => "index", :quater => 'Q2' } %>
@@ -13,20 +10,35 @@
     <%= link_to 'Q4 2018', {:controller => "teams", :action => "index", :quater => 'Q4' } %>
   </div>
 </div>
-
+<%counter = 0%>
 <h1>Teams</h1>
 <ul class="collapsibleList">
   <% @teams.each do |team| %>
   <% create_lists(team) %><% investment_values = 0 %>
-  <li class="middlething"><%= "#{team.name}:" %><div class="pull-right"> <% Investment.where(team_id: team.id).each {|j| investment_values += j.investment} %><%= investment_values%></div>
-    <ul><% @roadmaps.each do |map, value| %>
-      <li><%= map.name %><div class="pull-right"> <%= @roadmaps[map] %> </div>
-        <ul><% @initiatives.each do |init, value| %>
+  <li class="middlething"> <!-- this class is to keep the values on the right aligned -->
+    <!-- dropdowndivs is to make the div shrink to fit, onclick will make the list below it dissapear -->
+    <div class="dropdowndivs" onclick="dropdown(<%=counter%>)"><%= "#{team.name}:" %></div>
+    <!-- this is the value of the entire team -->
+    <div class="pull-right"><% Investment.where(team_id: team.id).each {|j| investment_values += j.investment} %><%= investment_values%></div>
+    <ul id="<%= counter %>" class="dropdownlist"><% counter += 1 %>
+      <% @roadmaps.each do |map, value| %>
+      <li>
+        <div class="dropdowndivs" onclick="dropdown(<%=counter%>)"><%= map.name %></div>
+        <div class="pull-right"> <%= @roadmaps[map] %> </div>
+
+        <ul id="<%= counter %>" class="dropdownlist"><% counter += 1 %>
+          <% @initiatives.each do |init, value| %>
           <% if init.roadmap_id == map.id %>
-          <li><%= init.name %><div class="pull-right"> <%= @initiatives[init] %></div>
-            <ul><% @features.each do |feat, value| %>
+          <li>
+            <div class="dropdowndivs" onclick="dropdown(<%=counter%>)"><%= init.name %></div>
+            <div class="pull-right"> <%= @initiatives[init] %></div>
+
+            <ul id="<%= counter %>" class="dropdownlist"><% counter += 1 %>
+              <% @features.each do |feat, value| %>
               <% if feat.initiative_id == init.id %>
-              <li><%= feat.name %> <div class="pull-right"> <%= @features[feat] %> </div>
+              <li>
+                <div class="dropdowndivs"><%= feat.name %></div>
+                <div class="pull-right"> <%= @features[feat] %> </div>
               </li>
               <%end%><%end%>
             </ul>

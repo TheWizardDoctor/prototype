@@ -1,5 +1,5 @@
-function myFunction() {
-    document.getElementById("myDropdown").classList.toggle("show");
+function dropButton() {
+    document.getElementById("dropbox").classList.toggle("show");
 }
 
 function filterFunction() {
@@ -15,4 +15,8 @@ function filterFunction() {
             a[i].style.display = "none";
         }
     }
+}
+
+function dropdown(id) {
+  document.getElementById(id).classList.toggle("show")
 }

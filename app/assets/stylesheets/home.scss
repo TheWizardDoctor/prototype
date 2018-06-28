@@ -204,6 +204,16 @@ input {
   background-color: palegreen;
   padding: 2px;
 }
+
+.dropdowndivs {
+  display: inline-block;
+}
+
+.dropdownlist {
+    display: none;
+
+}
+
 .collapsibleList li{
   list-style-image : url('button.png');
   cursor : auto;
