@@ -5,7 +5,6 @@ class TeamsController < ApplicationController
   # GET /teams.json
   def index
     @teams = Team.all
-    @quater = params[:quater]
   end
 
   # GET /teams/1

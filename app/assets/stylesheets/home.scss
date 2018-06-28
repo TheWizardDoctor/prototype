@@ -16,26 +16,16 @@ $gray-medium-light: #eaeaea;
 
 /* universal */
 
-#hardly {
-  background-color: teal;
-  color: white;
-}
-#little {
-  background-color: green;
-  color: white;
-}
-#medium {
-  background-color: yellow;
-  color: black;
-}
-#almost {
-  background-color: orange;
-  color: black;
-}
-#over {
-  background-color: red;
-  color: black;
-}
+#newBTN {
+    text-decoration: none;
+    &:visited {
+      color: white;
+    }
+    &:hover{
+      text-decoration: none;
+    }
+  }
+
  #teamstable {
    width: 75%;
  }
@@ -143,18 +133,7 @@ input {
   height: auto !important;
 }
 
-.dropbtn {
-    background-color: #4CAF50;
-    color: white;
-    padding: 16px;
-    font-size: 16px;
-    border: none;
-    cursor: pointer;
-}
-
-.dropbtn:hover, .dropbtn:focus {
-    background-color: #3e8e41;
-}
+// THIS IS FOR THE QUATER BUTTON
 
 #myInput {
     border-box: box-sizing;
@@ -207,6 +186,9 @@ input {
 
 .dropdowndivs {
   display: inline-block;
+  &:hover {
+    cursor: pointer;
+  }
 }
 
 .dropdownlist {
