@@ -39,8 +39,11 @@ end
 totalFeats = Feature.count('id')
 
 (1..Team.count('id')).each do |team|
-  Investment.create!(team_id: team, feature_id: rand(1..totalFeats), investment: rand(0..75))
-  Investment.create!(team_id: team, feature_id: rand(1..totalFeats), investment: rand(0..75))
+  2.times do
+    feats = rand(1..totalFeats)
+    inv = rand(0..75)
+    Investment.create(team_id: team, feature_id: feats, investment: inv).valid? ? Investment.create!(team_id: team, feature_id: feats, investment: inv) : a=0
+  end
 end
 
 #=end
