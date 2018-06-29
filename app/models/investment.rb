@@ -1,6 +1,6 @@
 class Investment < ApplicationRecord
   validate :team_exists
-  validate :team_taken
+  #validate :team_taken
   validates :team_id, presence: true, numericality: true
   validates :investment, presence: true, numericality: true
   validates :feature_id, presence: true, numericality: true
