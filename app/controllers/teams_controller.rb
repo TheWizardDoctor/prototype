@@ -1,11 +1,18 @@
 class TeamsController < ApplicationController
   before_action :set_team, only: [:show, :edit, :update, :destroy]
-
+  require 'will_paginate/array'
   # GET /teams
   # GET /teams.json
   def index
-    @teams = Team.all
+    @teams = Team.all.compact
+    teams_ids = []
+    quater = params[:quater]
+    quater == nil ? quater = 'Q1' : quater = quater
+    @teams.each {|team| team_in_quater(team, quater) ?  a=0 : @teams.delete(team)}
+    @teams.each {|team| team_in_quater(team, quater) ?  a=0 : @teams.delete(team)}
+    @teams = @teams.paginate(:page => params[:page], :per_page => 10)
   end
+
 
   # GET /teams/1
   # GET /teams/1.json
@@ -72,4 +79,14 @@ class TeamsController < ApplicationController
     def team_params
       params.require(:team).permit(:name, :description)
     end
+
+    def team_in_quater(team, quater)
+      Investment.where(team_id: team.id).each do |i|
+        if Feature.find(i.feature_id).quater == quater
+          return true
+        end
+      end
+      return false
+    end
+
 end

@@ -4,7 +4,7 @@ class InitiativesController < ApplicationController
   # GET /initiatives
   # GET /initiatives.json
   def index
-    @initiatives = Initiative.all
+    @initiatives = Initiative.all.paginate(:page => params[:page], :per_page => 30)
   end
 
   # GET /initiatives/1

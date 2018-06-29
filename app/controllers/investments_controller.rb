@@ -4,7 +4,7 @@ class InvestmentsController < ApplicationController
   # GET /investments
   # GET /investments.json
   def index
-    @investments = Investment.all
+    @investments = Investment.all.paginate(:page => params[:page], :per_page => 30)
   end
 
   # GET /investments/1

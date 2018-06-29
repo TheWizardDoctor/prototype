@@ -3,7 +3,7 @@ class RoadmapsController < ApplicationController
   # GET /roadmaps
   # GET /roadmaps.json
   def index
-    @roadmaps = Roadmap.all
+    @roadmaps = Roadmap.all.paginate(:page => params[:page], :per_page => 30)
   end
 
   # GET /roadmaps/1

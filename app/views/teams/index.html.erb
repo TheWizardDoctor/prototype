@@ -12,11 +12,13 @@
   </div>
 </div>
 <a id="newBTN" class="btn btn-lg btn-success pull-right" href="<%=new_team_path%>">New Team +</a>
+
+<%= will_paginate @teams%>
+
 <%counter = 0%>
 <h1>Teams</h1>
 <ul class="collapsibleList">
 <% @teams.each do |team| %>
-  <% if team_in_quater(team, quater) == true %>
     <% create_lists(team, quater) %><% investment_values = 0 %>
     <li class="middlething"> <!-- this class is to keep the values on the right aligned -->
       <!-- dropdowndivs is to make the div shrink to fit, onclick will make the list below it dissapear -->
@@ -57,7 +59,6 @@
         <%end%>
       </ul>
     </div></li>
-  <%end%>
 <%end%>
 </ul>
 
