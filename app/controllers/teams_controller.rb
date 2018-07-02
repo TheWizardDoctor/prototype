@@ -5,12 +5,6 @@ class TeamsController < ApplicationController
   # GET /teams.json
   def index
     @teams = Team.all.compact
-    teams_ids = []
-    quater = params[:quater]
-    quater == nil ? quater = 'Q1' : quater = quater
-    @teams.each {|team| team_in_quater(team, quater) ?  a=0 : @teams.delete(team)}
-    @teams.each {|team| team_in_quater(team, quater) ?  a=0 : @teams.delete(team)}
-    @teams = @teams.paginate(:page => params[:page], :per_page => 10)
   end
 
 
@@ -78,15 +72,6 @@ class TeamsController < ApplicationController
     # Never trust parameters from the scary internet, only allow the white list through.
     def team_params
       params.require(:team).permit(:name, :description)
-    end
-
-    def team_in_quater(team, quater)
-      Investment.where(team_id: team.id).each do |i|
-        if Feature.find(i.feature_id).quater == quater
-          return true
-        end
-      end
-      return false
     end
 
 end

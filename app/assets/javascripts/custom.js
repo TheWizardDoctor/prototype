@@ -1,5 +1,5 @@
-function dropButton() {
-    document.getElementById("dropbox").classList.toggle("show");
+function dropButton(i) {
+    document.getElementById("dropbox"+i).classList.toggle("show");
 }
 
 function filterFunction() {

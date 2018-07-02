@@ -34,4 +34,53 @@ def team_in_quater(team, quater)
   end
 end
 
+def sorting()
+  @teams = Team.all.compact
+
+  if params[:team_investment] == 'ascending'
+    team_investments = {}
+    @teams.each do |team, value|
+      investment_values = 0
+      Investment.where(team_id: team.id).each do |i|
+        Feature.find(i.feature_id).quater == params[:quater] ? investment_values += i.investment : a=0
+      end
+      team_investments[team.id] = investment_values
+    end
+    @teams.sort! {|x,y| team_investments[x.id] <=> team_investments[y.id] }
+
+  elsif params[:team_investment] == 'descending'
+    team_investments = {}
+    @teams.each do |team, value|
+      investment_values = 0
+      Investment.where(team_id: team.id).each do |i|
+        Feature.find(i.feature_id).quater == params[:quater] ? investment_values += i.investment : a=0
+      end
+      team_investments[team.id] = investment_values
+    end
+    @teams.sort! {|x,y| team_investments[y.id] <=> team_investments[x.id] }
+  end
+
+  if params[:team_name] == 'ascending'
+    @teams.sort! {|x,y| x.name[/\d+/].to_i <=> y.name[/\d+/].to_i }
+  elsif params[:team_name] == 'descending'
+    @teams.sort! {|x,y| y.name[/\d+/].to_i <=> x.name[/\d+/].to_i}
+  end
+
+  quater = params[:quater]
+  quater == nil ? quater = 'Q1' : quater = quater
+
+  7.times {@teams.each {|team| team_in_quater(team, quater) ?  a=0 : @teams.delete(team)}}
+
+  @teams = @teams.paginate(:page => params[:page], :per_page => 10)
+end
+
+def team_in_quater(team, quater)
+  Investment.where(team_id: team.id).each do |i|
+    if Feature.find(i.feature_id).quater == quater
+      return true
+    end
+  end
+  return false
+end
+
 end
