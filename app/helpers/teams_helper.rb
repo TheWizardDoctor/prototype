@@ -26,23 +26,18 @@ module TeamsHelper
     @roadmaps = Hash[ @roadmaps.sort_by {|key, val| key}]
   end
 
-def team_in_quater(team, quater)
-  Investment.where(team_id: team.id).each do |i|
-    if Feature.find(i.feature_id).quater == quater
-      return true
-    end
-  end
-end
 
 def sorting()
   @teams = Team.all.compact
+  quater = params[:quater]
+  quater == nil ? quater = 'Q1' : quater = quater
 
   if params[:team_investment] == 'ascending'
     team_investments = {}
     @teams.each do |team, value|
       investment_values = 0
       Investment.where(team_id: team.id).each do |i|
-        Feature.find(i.feature_id).quater == params[:quater] ? investment_values += i.investment : a=0
+        Feature.find(i.feature_id).quater == quater ? investment_values += i.investment : a=0
       end
       team_investments[team.id] = investment_values
     end
@@ -53,7 +48,7 @@ def sorting()
     @teams.each do |team, value|
       investment_values = 0
       Investment.where(team_id: team.id).each do |i|
-        Feature.find(i.feature_id).quater == params[:quater] ? investment_values += i.investment : a=0
+        Feature.find(i.feature_id).quater == quater ? investment_values += i.investment : a=0
       end
       team_investments[team.id] = investment_values
     end
@@ -65,9 +60,6 @@ def sorting()
   elsif params[:team_name] == 'descending'
     @teams.sort! {|x,y| y.name[/\d+/].to_i <=> x.name[/\d+/].to_i}
   end
-
-  quater = params[:quater]
-  quater == nil ? quater = 'Q1' : quater = quater
 
   7.times {@teams.each {|team| team_in_quater(team, quater) ?  a=0 : @teams.delete(team)}}
 
