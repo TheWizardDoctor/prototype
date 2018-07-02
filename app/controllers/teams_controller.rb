@@ -4,7 +4,7 @@ class TeamsController < ApplicationController
   # GET /teams
   # GET /teams.json
   def index
-    @teams = Team.all.compact
+    @teams = Team.all.compact #this makes a copy of the active record so things can be deleted without the database being affected
   end
 
 

@@ -16,6 +16,7 @@ $gray-medium-light: #eaeaea;
 
 /* universal */
 
+//this button is found on all indexes
 #newBTN {
     text-decoration: none;
     color: white;
@@ -27,9 +28,7 @@ $gray-medium-light: #eaeaea;
     }
   }
 
- #teamstable {
-   width: 75%;
- }
+//this helps leave space at the top for the header
 body {
   padding-top: 60px;
 }
@@ -134,11 +133,10 @@ input {
   height: auto !important;
 }
 
-// THIS IS FOR THE QUATER BUTTON
+// this is for the quater button
 
 #myInput {
     border-box: box-sizing;
-    background-image: url('searchicon.png');
     background-position: 14px 12px;
     background-repeat: no-repeat;
     font-size: 16px;
@@ -175,7 +173,7 @@ input {
 
 .show {display: block;}
 
-// DROP DOWN LISTS FOR HOME INDEX
+// dropdown lists for the indexes
 
 .middlething {
   width: 50%;
@@ -222,4 +220,11 @@ li.collapsibleListClosed{
   padding: 20px;
   padding-right: 0px;
   margin-top: 4px;
+}
+
+// used for giving the numbers on the indexes some space
+.investment_value {
+  padding: 5px;
+  margin-top: -9px;
+  margin-right: 3px;
 }

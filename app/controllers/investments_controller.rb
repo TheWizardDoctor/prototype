@@ -16,7 +16,7 @@ class InvestmentsController < ApplicationController
   def new
     @feature = Feature.find(params[:id])
     if @investment == nil
-      @investment = Investment.new
+      @investment = Investment.new #this is for the redirect if there is an error
     end
   end
 
@@ -28,7 +28,7 @@ class InvestmentsController < ApplicationController
   # POST /investments.json
   def create
     @investment = Investment.new(investment_params)
-    @feature = Feature.find(@investment.feature_id)
+    @feature = Feature.find(@investment.feature_id) #feature is needed for the redirection
 
     respond_to do |format|
       if @investment.save
@@ -46,7 +46,7 @@ class InvestmentsController < ApplicationController
   # PATCH/PUT /investments/1.json
   def update
     respond_to do |format|
-      @feature = Feature.find(@investment.feature_id)
+      @feature = Feature.find(@investment.feature_id) #feature is needed for the redirect
       if @investment.update(investment_params)
         format.html { redirect_to @feature, notice: 'Investment was successfully updated.' }
         format.json { render @investment, status: :ok, location: @investment }

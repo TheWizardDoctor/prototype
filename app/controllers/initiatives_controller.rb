@@ -4,7 +4,7 @@ class InitiativesController < ApplicationController
   # GET /initiatives
   # GET /initiatives.json
   def index
-    @initiatives = Initiative.all.paginate(:page => params[:page], :per_page => 30)
+    @initiatives = Initiative.all.paginate(:page => params[:page], :per_page => 30) #pagination (pages)
   end
 
   # GET /initiatives/1
@@ -55,7 +55,7 @@ class InitiativesController < ApplicationController
   # DELETE /initiatives/1.json
   def destroy
     @count = Feature.group(:initiative_id).count
-    raise "Cannot delete Initiatives that have Features" unless @count[@initiative.id] == nil
+    raise "Cannot delete Initiatives that have Features" unless @count[@initiative.id] == nil # REVIEW this makes an INTENTIONAL error if you try and delete an initiative that has children
     @initiative.destroy
     respond_to do |format|
       format.html { redirect_to initiatives_url, notice: 'Initiative was successfully destroyed.' }

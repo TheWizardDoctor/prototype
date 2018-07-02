@@ -14,9 +14,8 @@
   <div class="field">
     <%= form.label :team_id %>
     <%= form.text_field :team_id %>
-    <%= form.hidden_field :feature_id, :value => @feature.id %>
-    <%= form.hidden_field :investment, :value => 0 %>
-    <%= form.hidden_field :create, :value => true %>
+    <%= form.hidden_field :feature_id, :value => @feature.id %> <!-- to keep the feature id for creation -->
+    <%= form.hidden_field :investment, :value => 0 %> <!-- default investment to prevent database errors -->
   </div>
 
   <div class="actions">

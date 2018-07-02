@@ -5,10 +5,10 @@
 <button onclick="dropButton()" class="btn btn-lg btn-success">Quater</button>
   <div id="dropbox" class="dropdown-content">
     <input type="text" placeholder="Search.." id="myInput" onkeyup="filterFunction()">
-    <%= link_to 'Q1 2018', {:controller => "teams", :action => "show", :quater => 'Q1' } %>
-    <%= link_to 'Q2 2018', {:controller => "teams", :action => "show", :quater => 'Q2' } %>
-    <%= link_to 'Q3 2018', {:controller => "teams", :action => "show", :quater => 'Q3' } %>
-    <%= link_to 'Q4 2018', {:controller => "teams", :action => "show", :quater => 'Q4' } %>
+    <%= link_to 'Q1 2018', teams_path(:quater => 'Q1') %>
+    <%= link_to 'Q2 2018', teams_path(:quater => 'Q2') %>
+    <%= link_to 'Q3 2018', teams_path(:quater => 'Q3') %>
+    <%= link_to 'Q4 2018', teams_path(:quater => 'Q4') %>
   </div>
 </div>
 

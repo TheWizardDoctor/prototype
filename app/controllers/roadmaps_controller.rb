@@ -3,7 +3,7 @@ class RoadmapsController < ApplicationController
   # GET /roadmaps
   # GET /roadmaps.json
   def index
-    @roadmaps = Roadmap.all.paginate(:page => params[:page], :per_page => 30)
+    @roadmaps = Roadmap.all.paginate(:page => params[:page], :per_page => 30) #pagination (pages)
   end
 
   # GET /roadmaps/1
@@ -54,7 +54,7 @@ class RoadmapsController < ApplicationController
   # DELETE /roadmaps/1.json
   def destroy
     @initcount = Initiative.group(:roadmap_id).count
-    raise "Cannot delete Roadmaps that have Initiatives" unless @initcount[@roadmap.id] == nil
+    raise "Cannot delete Roadmaps that have Initiatives" unless @initcount[@roadmap.id] == nil #REVIEW this raises an INTENTIONAL error if you try and delete a roadmap with children
     @roadmap.destroy
     respond_to do |format|
       format.html { redirect_to roadmaps_url, notice: 'Roadmap was successfully destroyed.' }

@@ -14,7 +14,7 @@
   </thead>
 
   <tbody>
-    <%= will_paginate @features%>
+    <%= will_paginate @features%> ,     <!-- paginates -->
     <% @features.each do |feature| %>
       <tr>
         <td><%= feature.name %></td>

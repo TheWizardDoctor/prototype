@@ -1,19 +1,25 @@
 <p id="notice"><%= notice %></p>
+<!-- makes sure that a quater is selected -->
 <% quater = params[:quater] %>
 <% quater == nil ? quater = 'Q1' : quater = quater %>
+
+<!-- this dropdown button selects which quater to see the index in -->
 <div class="dropdown">
 <button onclick="dropButton(1)" class="btn btn-lg btn-success">Quater</button>
   <div id="dropbox1" class="dropdown-content">
-    <input type="text" placeholder="Search.." id="myInput" onkeyup="filterFunction()">
+    <input type="text" placeholder="Search.." id="myInput" onkeyup="filterFunction()"> <!-- this is a search function for the quater REVIEW -->
     <%= link_to 'Q1 2018', teams_path(:quater => 'Q1') %>
     <%= link_to 'Q2 2018', teams_path(:quater => 'Q2') %>
     <%= link_to 'Q3 2018', teams_path(:quater => 'Q3') %>
     <%= link_to 'Q4 2018', teams_path(:quater => 'Q4') %>
   </div>
 </div>
+
+<!-- this button is to add a new team -->
 <a id="newBTN" class="btn btn-lg btn-success pull-right" href="<%=new_team_path%>">New Team +</a>
 <br>
 
+<!-- this button is for selecting if you want to sort the teams by team name -->
 <div class="dropdown">
 <button onclick="dropButton(2)" class="btn btn-lg btn-success">Name</button>
   <div id="dropbox2" class="dropdown-content">
@@ -22,6 +28,7 @@
   </div>
 </div>
 
+<!-- this button if for selecting if yo uwant to sort the teams by total investment for this quater -->
 <div class="dropdown">
 <button onclick="dropButton(3)" class="btn btn-lg btn-success">Investment</button>
   <div id="dropbox3" class="dropdown-content">
@@ -30,54 +37,75 @@
   </div>
 </div>
 
-
+<!-- this calls the sorting function and organizes the teams -->
 <% sorting() %>
-<%= will_paginate @teams%>
 
-<%counter = 0%>
+<%= will_paginate @teams%> <!-- paginates -->
+
+<%counter = 0%> <!-- the counter is for the dropdown funtion and helps create an automated nesting system -->
+
 <h1>Teams</h1>
 <ul class="collapsibleList">
+<!-- iterates through every team in teams -->
 <% @teams.each do |team| %>
-    <% create_lists(team, quater) %><% investment_values = 0 %>
-    <li class="middlething"> <!-- this class is to keep the values on the right aligned -->
-      <!-- dropdowndivs is to make the div shrink to fit, onclick will make the list below it dissapear -->
-      <div class="dropdowndivs" onclick="dropdown(<%=counter%>)"><%= "#{team.name}:" %></div>
-      <div class="dropdowndivs"><%= link_to "->", team_path(team.id) %></div>
-      <!-- this is the value of the entire team -->
-      <% @features.each {|f, value| (f.quater == quater) ? (Investment.where(team_id: team.id, feature_id: f.id ).each {|j| investment_values += j.investment}) : a=0} %>
-      <div class="pull-right"><%= investment_values%></div>
-      <ul id="<%= counter %>" class="dropdownlist"><% counter += 1 %>
-        <% @roadmaps.each do |map, value| %>
-        <li>
-          <div class="dropdowndivs" onclick="dropdown(<%=counter%>)"><%= map.name %></div>
-          <div class="dropdowndivs"><%= link_to "->", roadmap_path(map.id) %></div>
-          <div class="pull-right"> <%= @roadmaps[map] %> </div>
+  <!-- creates the lists (helper) and initializes the investment value -->
+  <% create_lists(team, quater) %><% investment_values = 0 %>
+  <!-- this is the value of the entire team's investments for the selected quater -->
+  <% @features.each {|f, value| (f.quater == quater) ? (Investment.where(team_id: team.id, feature_id: f.id ).each {|j| investment_values += j.investment}) : a=0} %>
 
-          <ul id="<%= counter %>" class="dropdownlist"><% counter += 1 %>
-            <% @initiatives.each do |init, value| %>
-            <% if init.roadmap_id == map.id %>
-            <li>
-              <div class="dropdowndivs" onclick="dropdown(<%=counter%>)"><%= init.name %></div>
-              <div class="dropdowndivs"><%= link_to "->", initiative_path(init.id) %></div>
-              <div class="pull-right"> <%= @initiatives[init] %></div>
+  <% color = color(investment_values)%>
+  <li class="middlething  bg-<%= color %>"> <!-- this class is to keep the values on the right aligned -->
+    <!-- * dropdowndivs is to make the div shrink to fit, onclick will make the list below it dissapear -->
+    <div class="dropdowndivs" onclick="dropdown(<%=counter%>)"><%= "#{team.name}:" %></div>
+    <div class="dropdowndivs"><%= link_to "->", team_path(team.id) %></div>
+    <!-- ** color sets the background color for the number, pull right puts it on the right, bg- is background shorthand for boostrap, and the counter is for colapsibility -->
+    <div class="pull-right investment_value"><%= investment_values%></div>
+    <ul id="<%= counter %>" class="dropdownlist"><% counter += 1 %>
 
-              <ul id="<%= counter %>" class="dropdownlist"><% counter += 1 %>
-                <% @features.each do |feat, value| %>
-                <% if feat.initiative_id == init.id %>
-                <li>
-                  <div class="dropdowndivs"><%= feat.name %></div>
-                  <div class="dropdowndivs"><%= link_to "->", feature_path(feat.id) %></div>
-                  <div class="pull-right"> <%= @features[feat] %> </div>
-                </li>
-                <%end%><%end%>
-              </ul>
-            </li>
-            <%end%><%end%>
-          </ul>
-        </li>
-        <%end%>
-      </ul>
-    </div></li>
+      <!-- iterates through all of the roadmaps -->
+      <% @roadmaps.each do |map, value| %>
+      <% color = color(@roadmaps[map])%>
+      <li class="bg-<%= color %>">
+        <!-- see * -->
+        <div class="dropdowndivs" onclick="dropdown(<%=counter%>)"><%= map.name %></div>
+        <div class="dropdowndivs"><%= link_to "->", roadmap_path(map.id) %></div>
+        <!-- see ** -->
+        <div class="pull-right investment_value"> <%= @roadmaps[map] %> </div>
+        <ul id="<%= counter %>" class="dropdownlist"><% counter += 1 %>
+
+          <!-- iterates through all of the initiatives -->
+          <% @initiatives.each do |init, value| %>
+          <% if init.roadmap_id == map.id %>
+          <% color = color(@initiatives[init])%>
+          <li class="bg-<%= color %>">
+            <!-- see * -->
+            <div class="dropdowndivs" onclick="dropdown(<%=counter%>)"><%= init.name %></div>
+            <div class="dropdowndivs"><%= link_to "->", initiative_path(init.id) %></div>
+            <!-- see ** -->
+            <div class="pull-right investment_value"> <%= @initiatives[init] %></div>
+            <ul id="<%= counter %>" class="dropdownlist"><% counter += 1 %>
+
+              <!-- iterates through all of the features -->
+              <% @features.each do |feat, value| %>
+              <% if feat.initiative_id == init.id %>
+              <% color = color(@features[feat])%>
+              <li class="bg-<%= color %>">
+                <!-- see * -->
+                <div class="dropdowndivs"><%= feat.name %></div>
+                <div class="dropdowndivs"><%= link_to "->", feature_path(feat.id) %></div>
+                <!-- see ** -->
+                <div class="pull-right investment_value"> <%= @features[feat] %> </div>
+
+              </li>
+              <%end%><%end%>
+            </ul>
+          </li>
+          <%end%><%end%>
+        </ul>
+      </li>
+      <%end%>
+    </ul>
+  </div></li>
 <%end%>
 </ul>
 

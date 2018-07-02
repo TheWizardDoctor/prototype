@@ -12,7 +12,7 @@
     </tr>
   </thead>
   <tbody>
-    <%= will_paginate @initiatives %>
+    <%= will_paginate @initiatives %> <!-- paginates -->
     <% @roadmaps.each do |roadmap| %>
       <tr>
         <td><%= roadmap.name %></td>

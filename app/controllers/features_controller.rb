@@ -4,7 +4,7 @@ class FeaturesController < ApplicationController
   # GET /features
   # GET /features.json
   def index
-    @features = Feature.all.paginate(:page => params[:page], :per_page => 30)
+    @features = Feature.all.paginate(:page => params[:page], :per_page => 30) #pagination (pages)
   end
 
   # GET /features/1
