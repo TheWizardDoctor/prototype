@@ -2,24 +2,52 @@
 <a id="newBTN" class="btn btn-lg btn-success pull-right" href="<%=new_feature_path%>">New Feature +</a>
 <br>
 <h1>Features</h1>
+<% features_sorting() %>
+<!-- this button is for selecting if you want to sort the teams by team name -->
+<div class="dropdown">
+<button onclick="dropButton(2)" class="btn btn-lg btn-success">Name</button>
+  <div id="dropbox2" class="dropdown-content">
+    <%= link_to 'Ascending', features_path(:feature_name => 'ascending') %>
+    <%= link_to 'Descending', features_path(:feature_name => 'descending') %>
+  </div>
+</div>
 
+<!-- this button if for selecting if you want to sort the teams by total investment for this quater 
+<div class="dropdown">
+<button onclick="dropButton(3)" class="btn btn-lg btn-success">Investment</button>
+  <div id="dropbox3" class="dropdown-content">
+    <%= link_to 'Ascending', features_path(:feature_investment => 'ascending') %>
+    <%= link_to 'Descending', features_path(:feature_investment => 'descending') %>
+  </div>
+</div>
+-->
 <table>
-  <thead>
+  <thead class="center">
     <tr>
       <th>Name</th>
       <th>Description</th>
       <th>Initiative</th>
+      <th>Quater</th>
+      <th>Team Type</th>
+      <th>Primary Team</th>
+      <th>Owner</th>
+      <th>Scope</th>
       <th colspan="3"></th>
     </tr>
   </thead>
 
   <tbody>
-    <%= will_paginate @features%> ,     <!-- paginates -->
+    <%= will_paginate @features%>      <!-- paginates -->
     <% @features.each do |feature| %>
       <tr>
         <td><%= feature.name %></td>
         <td><%= feature.description %></td>
         <td><%= link_to feature.initiative_id, initiative_path(feature.initiative_id) %></td>
+        <td><%= feature.quater %></td>
+        <td><%= feature.team_type %></td>
+        <td><%= Team.find_by(id: feature.primary_team_id) == nil ? "-" : Team.find_by(id: feature.primary_team_id).name %></td>
+        <td><%= feature.owner %></td>
+        <td><%= feature.scope %></td>
         <td><%= link_to 'Show', feature %></td>
         <td><%= link_to 'Edit', edit_feature_path(feature) %></td>
         <td><%= link_to 'Destroy', feature, method: :delete, data: { confirm: 'Are you sure?' } %></td>

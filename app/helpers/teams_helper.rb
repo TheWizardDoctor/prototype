@@ -79,14 +79,13 @@ def team_in_quater(team, quater)
 end
 
 #this is for setting the color background of the numbers using bootstrap
-#REVIEW for some reason if it is set to white then no coloring will take affect (ie a white box inside a red box is red but a green box inside a red box is green)
 def color(value)
   if value > 100
     return 'danger'
   elsif value >= 85
     return 'success'
   else
-    return 'info'
+    return 'white'
   end
 end
 

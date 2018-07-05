@@ -71,6 +71,6 @@ class InitiativesController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def initiative_params
-      params.require(:initiative).permit(:name, :description, :roadmap_id)
+      params.require(:initiative).permit(:name, :description, :roadmap_id, :investment, :percentage, :estimated_teams, :teams, :key_strategey, :product_manager)
     end
 end

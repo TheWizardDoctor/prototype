@@ -1,10 +1,9 @@
 class FeaturesController < ApplicationController
   before_action :set_feature, only: [:show, :edit, :update, :destroy]
-
   # GET /features
   # GET /features.json
   def index
-    @features = Feature.all.paginate(:page => params[:page], :per_page => 30) #pagination (pages)
+    @features = Feature.all.compact.paginate(:page => params[:page], :per_page => 30) #pagination (pages)
   end
 
   # GET /features/1
@@ -71,7 +70,7 @@ class FeaturesController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def feature_params
-      params.require(:feature).permit(:name, :description, :initiative_id, :quater)
+      params.require(:feature).permit(:name, :description, :initiative_id, :quater, :team_type, :primary_team_id, :owner, :scope)
     end
 
 end

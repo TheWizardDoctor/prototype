@@ -198,7 +198,7 @@ input {
 .collapsibleList li{
   list-style-image : url('button.png');
   cursor : auto;
-  border-style: outset;
+  border: 1.5px solid darkgray;
   padding: 20px;
   padding-right: 0px;
   margin-top: 4px;
@@ -207,7 +207,7 @@ input {
 li.collapsibleListOpen{
   list-style-image : url('button-open.png');
   cursor : pointer;
-  border-style: inset;
+  border: 1.5px solid darkgray;
   padding: 20px;
   padding-right: 0px;
   margin-top: 4px;
@@ -216,7 +216,7 @@ li.collapsibleListOpen{
 li.collapsibleListClosed{
   list-style-image : url('button-closed.png');
   cursor : pointer;
-  border-style: outset;
+  border: 1.5px solid darkgray;
   padding: 20px;
   padding-right: 0px;
   margin-top: 4px;
@@ -227,4 +227,8 @@ li.collapsibleListClosed{
   padding: 5px;
   margin-top: -9px;
   margin-right: 3px;
+}
+
+#bootstrap-override .bg-white {
+  background-color: #FFFFFF
 }

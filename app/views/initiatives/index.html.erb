@@ -9,6 +9,12 @@
       <th>Name</th>
       <th>Description</th>
       <th>Roadmap</th>
+      <th>Investment</th>
+      <th>Percentage??</th>
+      <th>Estimated Number of Teams</th>
+      <th>Number of Teams</th>
+      <th>Product Manager</th>
+      <th>Key Strategey</th>
       <th colspan="3"></th>
     </tr>
   </thead>
@@ -19,6 +25,12 @@
         <td><%= initiative.name %></td>
         <td><%= initiative.description %></td>
         <td><%= link_to initiative.roadmap_id, roadmap_path(initiative.roadmap_id) %></td>
+        <td><%= initiative.investment %></td>
+        <td><%= initiative.percentage %></td>
+        <td><%= initiative.estimated_teams %></td>
+        <td><%= initiative.teams %></td>
+        <td><%= initiative.product_manager %></td>
+        <td><%= initiative.key_strategey %></td>
         <td><%= link_to 'Show', initiative %></td>
         <td><%= link_to 'Edit', edit_initiative_path(initiative) %></td>
         <td><%= link_to 'Destroy', initiative, method: :delete, data: { confirm: 'Are you sure?' } %></td>

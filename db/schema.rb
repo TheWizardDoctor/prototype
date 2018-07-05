@@ -10,15 +10,19 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_06_26_134101) do
+ActiveRecord::Schema.define(version: 2018_07_03_162315) do
 
   create_table "features", force: :cascade do |t|
     t.string "name"
     t.text "description"
     t.integer "initiative_id"
-    t.text "quater", default: "Q1"
+    t.string "quater", default: "Q1"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "team_type"
+    t.integer "primary_team_id"
+    t.string "owner"
+    t.boolean "scope", default: false
     t.index ["initiative_id"], name: "index_features_on_initiative_id"
   end
 
@@ -28,6 +32,12 @@ ActiveRecord::Schema.define(version: 2018_06_26_134101) do
     t.integer "roadmap_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer "investment", default: 0
+    t.integer "percentage"
+    t.integer "estimated_teams"
+    t.integer "teams"
+    t.string "key_strategey"
+    t.string "product_manager"
     t.index ["roadmap_id"], name: "index_initiatives_on_roadmap_id"
   end
 
