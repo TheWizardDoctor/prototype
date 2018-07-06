@@ -55,7 +55,7 @@ module TeamsHelper
       #sorts the teams hash from lowest to highest
       @teams.sort! {|x,y| team_investments[x.id] <=> team_investments[y.id] }
     #this does the same thing but ends up sorting from highest to lowest
-  elsif params[:Investment] == 'descending'
+    elsif params[:Investment] == 'descending'
       team_investments = find_team_values()
       @teams.sort! {|x,y| team_investments[y.id] <=> team_investments[x.id] }
     end
@@ -65,6 +65,15 @@ module TeamsHelper
       @teams.sort! {|x,y| sorting_function(x.name, y.name) }
     elsif params[:Name] == 'descending'
       @teams.sort! {|x,y| sorting_function(y.name, x.name) }
+    end
+
+    if params[:Investment_f]
+      team_investments = find_team_values()
+      if params[:Investment_f].to_i > 100
+        7.times {@teams.each {|team,value| (100 < team_investments[team.id]) ? a = 0 : @teams.delete(team)}}
+      else
+        7.times {@teams.each {|team,value| ((params[:Investment_f].to_i..params[:Investment_f].to_i+9).include? team_investments[team.id]) ? a = 0 : @teams.delete(team) }}
+      end
     end
 
     #this paginates the teams into 15 per page

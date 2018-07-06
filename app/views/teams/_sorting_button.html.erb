@@ -1,7 +1,7 @@
 <div class="dropdown">
 <button onclick="dropButton('<%= var %>')" class="btn btn-lg btn-success"><%= var %></button>
   <div id="dropbox<%= var %>" class="dropdown-content">
-    <%= link_to 'Ascending', teams_path(var.to_sym => 'ascending', :quater => params[:quater], :search => params[:search]) %>
-    <%= link_to 'Descending', teams_path(var.to_sym => 'descending', :quater => params[:quater], :search => params[:search]) %>
+    <%= link_to 'Ascending', teams_path(var.to_sym => 'ascending', :quater => params[:quater], :search => params[:search], :Investment_f => params[:Investment_f]) %>
+    <%= link_to 'Descending', teams_path(var.to_sym => 'descending', :quater => params[:quater], :search => params[:search], :Investment_f => params[:Investment_f]) %>
   </div>
 </div>

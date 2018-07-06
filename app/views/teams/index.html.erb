@@ -29,6 +29,8 @@
 <!-- this button if for selecting if you want to sort the teams by total investment for this quater -->
 <%= render "sorting_button", var: "Investment" %>
 
+<%= render "filter_button", var: "Investment" %>
+
 <!-- this calls the sorting function and organizes the teams -->
 <% sorting() %>
 
@@ -49,7 +51,7 @@
   <li class="middlething bg-<%= color %>"> <!-- this class is to keep the values on the right aligned -->
     <!-- * dropdowndivs is to make the div shrink to fit, onclick will make the list below it dissapear -->
     <div class="dropdowndivs" onclick="dropdown(<%=counter%>)"><%= "#{team.name}:" %></div>
-    <div class="dropdowndivs"><%= link_to "->", team_path(team.id) %></div>
+    <div class="dropdowndivs"><%= link_to "->", team_path(team.id, :quater => params[:quater]) %></div>
     <!-- ** color sets the background color for the number, pull right puts it on the right, bg- is background shorthand for boostrap, and the counter is for colapsibility -->
     <div class="pull-right investment_value"><%= investment_values%></div>
     <ul id="<%= counter %>" class="dropdownlist"><% counter += 1 %>

@@ -1,0 +1,11 @@
+<div class="dropdown pull-right">
+  <% var += "_f" %>
+<button onclick="dropButton('<%= var %>')" class="btn btn-lg btn-success"><%= var.chop.chop %></button>
+  <div id="dropbox<%= var %>" class="dropdown-content">
+    <%= link_to "None", teams_path(request.query_parameters.merge({var.to_sym => nil})) %>
+    <% 10.times do |i| %>
+    <%= link_to "#{i*10} - #{i*10+10}", teams_path(request.query_parameters.merge({var.to_sym => i*10})) %>
+    <% end %>
+    <%= link_to "101+", teams_path(request.query_parameters.merge({var.to_sym => 101})) %>
+  </div>
+</div>
