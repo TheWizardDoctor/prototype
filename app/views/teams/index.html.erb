@@ -3,39 +3,31 @@
 <% quater = params[:quater] %>
 <% quater == nil ? quater = 'Q1' : quater = quater %>
 
+<%= form_tag(teams_path, :method => "get", id: "search-form") do %>
+    <%= text_field_tag :search, params[:search], placeholder: "Search Teams" %>
+    <%= submit_tag "Search", :name => nil %>
+<% end %>
+
 <!-- this dropdown button selects which quater to see the index in -->
 <div class="dropdown">
 <button onclick="dropButton(1)" class="btn btn-lg btn-success">Quater</button>
   <div id="dropbox1" class="dropdown-content">
     <input type="text" placeholder="Search.." id="myInput" onkeyup="filterFunction()"> <!-- this is a search function for the quater REVIEW -->
-    <%= link_to 'Q1 2018', teams_path(:quater => 'Q1') %>
-    <%= link_to 'Q2 2018', teams_path(:quater => 'Q2') %>
-    <%= link_to 'Q3 2018', teams_path(:quater => 'Q3') %>
-    <%= link_to 'Q4 2018', teams_path(:quater => 'Q4') %>
+    <%= link_to 'Q1 2018', teams_path(:quater => 'Q1', :search => params[:search]) %>
+    <%= link_to 'Q2 2018', teams_path(:quater => 'Q2', :search => params[:search]) %>
+    <%= link_to 'Q3 2018', teams_path(:quater => 'Q3', :search => params[:search]) %>
+    <%= link_to 'Q4 2018', teams_path(:quater => 'Q4', :search => params[:search]) %>
   </div>
 </div>
 
 <!-- this button is to add a new team -->
 <a id="newBTN" class="btn btn-lg btn-success pull-right" href="<%=new_team_path%>">New Team +</a>
 <br>
-
+<br>
 <!-- this button is for selecting if you want to sort the teams by team name -->
-<div class="dropdown">
-<button onclick="dropButton(2)" class="btn btn-lg btn-success">Name</button>
-  <div id="dropbox2" class="dropdown-content">
-    <%= link_to 'Ascending', teams_path(:team_name => 'ascending', :quater => params[:quater]) %>
-    <%= link_to 'Descending', teams_path(:team_name => 'descending', :quater => params[:quater]) %>
-  </div>
-</div>
-
+<%= render "sorting_button", var: "Name" %>
 <!-- this button if for selecting if you want to sort the teams by total investment for this quater -->
-<div class="dropdown">
-<button onclick="dropButton(3)" class="btn btn-lg btn-success">Investment</button>
-  <div id="dropbox3" class="dropdown-content">
-    <%= link_to 'Ascending', teams_path(:team_investment => 'ascending', :quater => params[:quater]) %>
-    <%= link_to 'Descending', teams_path(:team_investment => 'descending', :quater => params[:quater]) %>
-  </div>
-</div>
+<%= render "sorting_button", var: "Investment" %>
 
 <!-- this calls the sorting function and organizes the teams -->
 <% sorting() %>

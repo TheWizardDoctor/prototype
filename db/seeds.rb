@@ -12,26 +12,24 @@ x = 0
 y = 0
 z = 0
 (1..5).each do |n|
-  name  = "Roadmap #{n}"
-  description = "This is roadmap #{n}. It should have 5 Initiatives."
+  name  = Faker::StarWars.unique.planet
+  description = "This is roadmap #{name}. " + Faker::StarWars.quote
   Roadmap.create!(name: name, description: description)
   5.times do |i|
     x += 1
-    init = "Initiative #{x}"
-    init_desc = "This is Initiative #{x}. It should have 5 features"
+    init = Faker::StarWars.call_sign
+    init_desc = "This is Initiative #{init}. " + Faker::StarWars.quote
     Initiative.create!(name: init, description: init_desc, roadmap_id: n)
     5.times do |j|
       y += 1
-      feat = "Feature #{y}"
-      feat_desc = "This is Feature #{y}. It should have at least 2 Teams"
+      feat = Faker::StarWars.droid
+      feat_desc = "This is Feature #{feat}. " + Faker::StarWars.quote
       Feature.create!(name: feat, description: feat_desc, initiative_id: x, quater: "Q#{rand(1..4)}")
-      2.times do |k|
-        z += 1
-        team = "Team #{z}"
-        team_desc = "This is Team #{z}."
-        Team.create!(name: team, description: team_desc)
-        Investment.create!(team_id: z, feature_id: y, investment: rand(0..75))
-      end
+      z += 1
+      team = Faker::StarWars.character
+      team_desc = Faker::StarWars.quote
+      Team.create!(name: team, description: team_desc)
+      Investment.create!(team_id: z, feature_id: y, investment: rand(0..75))
     end
   end
 end

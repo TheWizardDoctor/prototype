@@ -38,7 +38,9 @@ module TeamsHelper
 #this function is to sort the team index by selecting quater, or organizing by a few filters
 def sorting()
   #creates a fresh team compact
-  @teams = Team.all.compact
+  if params[:search]
+    @teams = Team.search(params[:search]).compact
+  end
   #makes sure that /a/ quarter is selected
   @quater = params[:quater]
   @quater == nil ? @quater = 'Q1' : @quater = @quater
@@ -47,21 +49,21 @@ def sorting()
   7.times {@teams.each {|team| team_in_quater(team, @quater) ?  a=0 : @teams.delete(team)}}
 
   #finding the param that organizes team index by overall investment
-  if params[:team_investment] == 'ascending'
+  if params[:Investment] == 'ascending'
     team_investments = find_team_values()
     #sorts the teams hash from lowest to highest
     @teams.sort! {|x,y| team_investments[x.id] <=> team_investments[y.id] }
   #this does the same thing but ends up sorting from highest to lowest
-  elsif params[:team_investment] == 'descending'
+elsif params[:Investment] == 'descending'
     team_investments = find_team_values()
     @teams.sort! {|x,y| team_investments[y.id] <=> team_investments[x.id] }
   end
 
   #this finds the param for team name and sorts it (team 1 -> team 2 -> team 10 -> team 12 -> etc)
-  if params[:team_name] == 'ascending'
-    @teams.sort! {|x,y| x.name[/\d+/].to_i <=> y.name[/\d+/].to_i }
-  elsif params[:team_name] == 'descending'
-    @teams.sort! {|x,y| y.name[/\d+/].to_i <=> x.name[/\d+/].to_i}
+  if params[:Name] == 'ascending'
+    @teams.sort! {|x,y| sorting_function(x.name, y.name) }
+  elsif params[:Name] == 'descending'
+    @teams.sort! {|x,y| sorting_function(y.name, x.name) }
   end
 
   #this paginates the teams into 15 per page

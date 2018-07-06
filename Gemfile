@@ -19,6 +19,7 @@ gem 'sprockets-rails', '~> 2.3.2'
 gem 'bootstrap-sass', '~> 3.2.0'
 gem 'will_paginate', '~> 3.1.0'
 gem 'bootstrap-will_paginate', '~> 1'
+gem 'faker', '~> 1.8'
 
 # Use CoffeeScript for .coffee assets and views
 gem 'coffee-rails', '~> 4.2'
