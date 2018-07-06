@@ -1,6 +1,6 @@
 class Investment < ApplicationRecord
   validate :team_exists
-  #validate :team_taken #REVIEW currently, if this is activated then when an investment is changed, it raises an error
+  #validate :team_taken #REVIEW currently, if this is activated then when an investment is changed, it raises an error (SOMETHING WITH :BEFORE_VALIDATION MIGHT HELP)
   validates :team_id, presence: true, numericality: true
   validates :investment, presence: true, numericality: true
   validates :feature_id, presence: true, numericality: true
