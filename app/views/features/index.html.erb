@@ -4,49 +4,51 @@
     <%= text_field_tag :search, params[:search], placeholder: "Search Features" %>
     <%= submit_tag "Search", :name => nil %>
 <% end %>
+<% features_sorting() %>
 
 <a id="newBTN" class="btn btn-lg btn-success pull-right" href="<%=new_feature_path%>">New Feature +</a>
-<br>
-<h1>Features</h1>
-<% features_sorting() %>
 <!-- These buttongs sort the features -->
 <%= render "sorting_button", var: 'Name' %>
 <%= render "sorting_button", var: 'Initiative' %>
 <%= render "sorting_button", var: 'Quater' %>
-
-<table>
-  <thead class="center">
-    <tr>
-      <th>Name</th>
-      <th>Description</th>
-      <th>Initiative</th>
-      <th>Quater</th>
-      <th>Team Type</th>
-      <th>Primary Team</th>
-      <th>Owner</th>
-      <th>Scope</th>
-      <th colspan="3"></th>
-    </tr>
-  </thead>
-
-  <tbody>
-    <%= will_paginate @features%>      <!-- paginates -->
-    <% @features.each do |feature| %>
-      <tr>
-        <td><%= feature.name %></td>
-        <td><%= feature.description %></td>
-        <td><%= link_to Initiative.find(feature.initiative_id).name, initiative_path(feature.initiative_id) %></td>
-        <td><%= feature.quater %></td>
-        <td><%= feature.team_type %></td>
-        <td><%= Team.find_by(id: feature.primary_team_id) == nil ? "-" : Team.find_by(id: feature.primary_team_id).name %></td>
-        <td><%= feature.owner %></td>
-        <td><%= feature.scope %></td>
-        <td><%= link_to 'Show', feature %></td>
-        <td><%= link_to 'Edit', edit_feature_path(feature) %></td>
-        <td><%= link_to 'Destroy', feature, method: :delete, data: { confirm: 'Are you sure?' } %></td>
-      </tr>
-    <% end %>
-  </tbody>
-</table>
-
 <br>
+<h1>Features</h1>
+<div class="left_area">
+  <%= will_paginate @features%>
+  <% @features.each do |feature| %>
+  <ul class="scroll">
+    <li class="feature"><%= link_to feature.name, request.query_parameters.merge({:feature => feature.id}) %></li>
+    <li class="initative"><%= Initiative.find(feature.initiative_id).name %></li>
+  </ul>
+  <%end%>
+</div>
+
+<div class="right_area">
+  <% feature = Feature.find_by(id: params[:feature]) %>
+  <% if feature != nil %>
+  <div class="title-button"></div><h1 class="title"><%= feature.name %></h1> <a id="newBTN" class="title-button btn btn-success pull-right" href="<%=edit_feature_path(feature)%>">Edit</a>
+  <br>
+  <div id="right-left">
+    <div class="filler"> <h4 class="center">Description</h4> <%= feature.description %> </div>
+    <div class="filler"> <h4 class="center">Initative</h4>
+      ID: <%= link_to Initiative.find_by(id: feature.initiative_id).id, initiative_path(Initiative.find_by(id: feature.initiative_id)) %>
+      <br> Name: <%= Initiative.find_by(id: feature.initiative_id).name %>
+    </div>
+    <div class="filler"> <h4 class="center">Roadmap</h4>
+      ID: <%= link_to Roadmap.find_by(id: Initiative.find_by(id: feature.initiative_id).roadmap_id).id, roadmap_path(Roadmap.find_by(id: Initiative.find_by(id: feature.initiative_id).roadmap_id)) %>
+      <br> Name: <%= Roadmap.find_by(id: Initiative.find_by(id: feature.initiative_id).roadmap_id).name %>
+    </div>
+  </div>
+  <div id="right-right">
+    <div class="filler"> <h4 class="center">Primary Team</h4> <%= Team.find_by(id: feature.primary_team_id) != nil ? (link_to Team.find_by(id: feature.primary_team_id).name, team_path(Team.find_by(id: feature.primary_team_id))) : "" %> </div>
+    <div class="filler"> <h4 class="center">Teams</h4> <% Investment.where(feature_id: feature.id).each do |inv| %>
+      <%= link_to Team.find_by(id: inv.team_id).name, team_path(Team.find_by(id: inv.team_id)) %><br>
+    <%end%>
+    </div>
+    <div class="filler"> <h4 class="center">Quater</h4> <%= feature.quater %> </div>
+    <div class="filler"> <h4 class="center">Created/Updated</h4> <%= feature.created_at %>/<%= feature.updated_at %> </div>
+    <div class="filler"> <h4 class="center">Scope</h4> <%= feature.scope %> </div>
+    <div class="filler"> <h4 class="center">Owner</h4> <%= feature.owner %> </div>
+  </div>
+  <%end%>
+</div>
