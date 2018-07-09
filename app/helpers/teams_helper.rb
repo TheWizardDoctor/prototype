@@ -121,8 +121,6 @@ module TeamsHelper
 
   def search(teams, query)
     query.upcase!
-    good_teams = []
-    @investment_shit_list = []
     teams.each do |team, value|
       good = false
       Investment.where(team_id: team.id).each do |inv|
@@ -135,7 +133,6 @@ module TeamsHelper
       end
       good ? good : @teams.delete(team)
     end
-
   end
 
 end

@@ -2,9 +2,10 @@ module FeaturesHelper
 
   def features_sorting()
 
-    if params[:search]
-      @features = Feature.search(params[:search]).compact
+    if params[:search] != nil
+      7.times {search_features(@features, params[:search])}
     end
+
     #this finds the param for feature name and sorts it (feature 1 -> feature 2 -> feature 10 -> feature 12 -> etc)
     if params[:Name] == 'ascending'
       @features.sort! {|x,y| sorting_function(x.name, y.name) }
@@ -25,6 +26,22 @@ module FeaturesHelper
     end
 
     @features = @features.paginate(:page => params[:page], :per_page => 30)
+  end
+
+  def search_features(features, query)
+    query.upcase!
+    good_teams = []
+    features.each do |feat, value|
+      good = false
+      fname = feat.name.upcase
+      iname = Initiative.find_by(id: feat.initiative_id).name.upcase
+      rname = Roadmap.find_by(id: Initiative.find_by(id: feat.initiative_id).roadmap_id).name.upcase
+      Investment.where(feature_id: feat.id).each do |inv|
+        tname = Team.find_by(id: inv.team_id).name.upcase
+        (tname.include? query or fname.include? query or iname.include? query or rname.include? query) ? good = true : a = 0
+      end
+      good ? good : @features.delete(feat)
+    end
   end
 
 end

@@ -243,13 +243,14 @@ li.collapsibleListClosed{
   .scroll {
     border: 1px solid black;
     list-style-type: none;
+    margin-left: 0%;
     .feature {
       font-size: 12pt;
-      margin-left: -10%;
+      margin-left: -5%;
       padding-left: 10px;
     }
     .initative {
-      margin-left: -5%;
+      margin-left: -2.5%;
       padding-left: 10px;
     }
   }

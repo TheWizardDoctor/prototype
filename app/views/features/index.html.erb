@@ -7,7 +7,7 @@
 <% features_sorting() %>
 
 <a id="newBTN" class="btn btn-lg btn-success pull-right" href="<%=new_feature_path%>">New Feature +</a>
-<!-- These buttongs sort the features -->
+<!-- These buttons sort the features -->
 <%= render "sorting_button", var: 'Name' %>
 <%= render "sorting_button", var: 'Initiative' %>
 <%= render "sorting_button", var: 'Quater' %>
@@ -42,7 +42,9 @@
   <div id="right-right">
     <div class="filler"> <h4 class="center">Primary Team</h4> <%= Team.find_by(id: feature.primary_team_id) != nil ? (link_to Team.find_by(id: feature.primary_team_id).name, team_path(Team.find_by(id: feature.primary_team_id))) : "" %> </div>
     <div class="filler"> <h4 class="center">Teams</h4> <% Investment.where(feature_id: feature.id).each do |inv| %>
-      <%= link_to Team.find_by(id: inv.team_id).name, team_path(Team.find_by(id: inv.team_id)) %><br>
+      <div><%= link_to Team.find_by(id: inv.team_id).name, team_path(Team.find_by(id: inv.team_id)) %></div>
+      <div class="pull-right"> <strong>Percentage invested: </strong> <%= "#{inv.investment}% | " %> <%= link_to 'change', edit_investment_path(inv) %> | <%= link_to 'remove', inv, method: :delete, data: { confirm: 'Are you sure?' } %> </div>
+      <br>
     <%end%>
     </div>
     <div class="filler"> <h4 class="center">Quater</h4> <%= feature.quater %> </div>
