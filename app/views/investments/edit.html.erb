@@ -10,7 +10,7 @@
       </ul>
     </div>
   <% end %>
-<h1><%= "Team: #{@investment.team_id} | Feature: #{@investment.feature_id} | Quater: #{Feature.find(@investment.feature_id).quater}" %></h1>
+<h1><%= "Team: #{@investment.team_id} | Feature: #{@investment.feature_id} | quarter: #{Feature.find(@investment.feature_id).quarter}" %></h1>
   <div class="field">
     <%= form.label :investment %>
     <%= form.text_field :investment %>

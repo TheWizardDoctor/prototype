@@ -19,10 +19,10 @@ module FeaturesHelper
       @features.sort! {|x,y| sorting_function(Initiative.find_by(id: y.initiative_id).name, Initiative.find_by(id: x.initiative_id).name) == 0 ? sorting_function(x.name, y.name) : sorting_function(Initiative.find_by(id: y.initiative_id).name, Initiative.find_by(id: x.initiative_id).name) }
     end
 
-    if params[:Quater] == 'ascending'
-      @features.sort! {|x,y| sorting_function(x.quater, y.quater) == 0 ? sorting_function(x.name, y.name) : sorting_function(x.quater, y.quater) }
-    elsif params[:Quater] == 'descending'
-      @features.sort! {|x,y| sorting_function(y.quater, x.quater) == 0 ? sorting_function(x.name, y.name) : sorting_function(y.quater, x.quater) }
+    if params[:quarter] == 'ascending'
+      @features.sort! {|x,y| sorting_function(x.quarter, y.quarter) == 0 ? sorting_function(x.name, y.name) : sorting_function(x.quarter, y.quarter) }
+    elsif params[:quarter] == 'descending'
+      @features.sort! {|x,y| sorting_function(y.quarter, x.quarter) == 0 ? sorting_function(x.name, y.name) : sorting_function(y.quarter, x.quarter) }
     end
 
     @features = @features.paginate(:page => params[:page], :per_page => 30)

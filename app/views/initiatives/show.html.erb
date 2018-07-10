@@ -15,10 +15,14 @@
   <%= link_to @initiative.roadmap_id, roadmap_path(@initiative.roadmap_id) %>
 </p>
 
+
+<strong> Percentage: </strong><%= @initiative.percentage %> <br>
+<strong> Estimated Teams: </strong><%= @initiative.estimated_teams %> <br>
+<strong> Teams: </strong><%= @initiative.teams %> <br>
+<strong> Product Manager: </strong><%= @initiative.product_manager %> <br>
+<br>
 <%= link_to 'Edit', edit_initiative_path(@initiative) %> |
 <%= link_to 'Initiatives', initiatives_path %>
-
-<br>
 <p>
   <strong>Features:</strong>
   <% Feature.where(initiative_id: @initiative.id).find_each do |feat| %>

@@ -1,22 +1,22 @@
 <p id="notice"><%= notice %></p>
-<!-- makes sure that a quater is selected -->
-<% quater = params[:quater] %>
-<% quater == nil ? quater = 'Q1' : quater = quater %>
+<!-- makes sure that a quarter is selected -->
+<% quarter = params[:quarter] %>
+<% quarter == nil ? quarter = 'Q1' : quarter = quarter %>
 
 <%= form_tag(teams_path, :method => "get", id: "search-form") do %>
     <%= text_field_tag :search, params[:search], placeholder: "Search Teams" %>
     <%= submit_tag "Search", :name => nil %>
 <% end %>
 
-<!-- this dropdown button selects which quater to see the index in -->
+<!-- this dropdown button selects which quarter to see the index in -->
 <div class="dropdown">
-<button onclick="dropButton(1)" class="btn btn-lg btn-success">Quater</button>
+<button onclick="dropButton(1)" class="btn btn-lg btn-success">Quarter</button>
   <div id="dropbox1" class="dropdown-content">
-    <input type="text" placeholder="Search.." id="myInput" onkeyup="filterFunction()"> <!-- this is a search function for the quater REVIEW -->
-    <%= link_to 'Q1 2018', teams_path(:quater => 'Q1', :search => params[:search]) %>
-    <%= link_to 'Q2 2018', teams_path(:quater => 'Q2', :search => params[:search]) %>
-    <%= link_to 'Q3 2018', teams_path(:quater => 'Q3', :search => params[:search]) %>
-    <%= link_to 'Q4 2018', teams_path(:quater => 'Q4', :search => params[:search]) %>
+    <input type="text" placeholder="Search.." id="myInput" onkeyup="filterFunction()"> <!-- this is a search function for the quarter REVIEW -->
+    <%= link_to 'Q1 2018', teams_path(:quarter => 'Q1', :search => params[:search]) %>
+    <%= link_to 'Q2 2018', teams_path(:quarter => 'Q2', :search => params[:search]) %>
+    <%= link_to 'Q3 2018', teams_path(:quarter => 'Q3', :search => params[:search]) %>
+    <%= link_to 'Q4 2018', teams_path(:quarter => 'Q4', :search => params[:search]) %>
   </div>
 </div>
 
@@ -26,7 +26,7 @@
 <br>
 <!-- this button is for selecting if you want to sort the teams by team name -->
 <%= render "sorting_button", var: "Name" %>
-<!-- this button if for selecting if you want to sort the teams by total investment for this quater -->
+<!-- this button if for selecting if you want to sort the teams by total investment for this quarter -->
 <%= render "sorting_button", var: "Investment" %>
 
 <%= render "filter_button", var: "Investment" %>
@@ -43,15 +43,15 @@
 <!-- iterates through every team in teams -->
 <% @teams.each do |team| %>
   <!-- creates the lists (helper) and initializes the investment value -->
-  <% create_lists(team, quater) %><% investment_values = 0 %>
-  <!-- this is the value of the entire team's investments for the selected quater -->
-  <% @features.each {|f, value| (f.quater == quater) ? (Investment.where(team_id: team.id, feature_id: f.id ).each {|j| investment_values += j.investment}) : a=0} %>
+  <% create_lists(team, quarter) %><% investment_values = 0 %>
+  <!-- this is the value of the entire team's investments for the selected quarter -->
+  <% @features.each {|f, value| (f.quarter == quarter) ? (Investment.where(team_id: team.id, feature_id: f.id ).each {|j| investment_values += j.investment}) : a=0} %>
 
   <% color = color(investment_values)%>
   <li class="middlething bg-<%= color %>"> <!-- this class is to keep the values on the right aligned -->
     <!-- * dropdowndivs is to make the div shrink to fit, onclick will make the list below it dissapear -->
     <div class="dropdowndivs" onclick="dropdown(<%=counter%>)"><%= "#{team.name}:" %></div>
-    <div class="dropdowndivs"><%= link_to "->", team_path(team.id, :quater => params[:quater]) %></div>
+    <div class="dropdowndivs"><%= link_to "->", team_path(team.id, :quarter => params[:quarter]) %></div>
     <!-- ** color sets the background color for the number, pull right puts it on the right, bg- is background shorthand for boostrap, and the counter is for colapsibility -->
     <div class="pull-right investment_value"><%= investment_values%></div>
     <ul id="<%= counter %>" class="dropdownlist"><% counter += 1 %>

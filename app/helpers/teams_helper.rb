@@ -1,7 +1,7 @@
 module TeamsHelper
 
 # create list forms a set lists of all of the investments, features, initiatives, and roadmaps that a single team is a part of
-  def create_lists(team, quater)
+  def create_lists(team, quarter)
     #setting the empty lists
     @investments = {}
     @features = {}
@@ -10,7 +10,7 @@ module TeamsHelper
     #finds each investment
     Investment.where(team_id: team.id).each do |inv|
       #determines if the investment is in the selected quarter
-      if Feature.find(inv.feature_id).quater == quater
+      if Feature.find(inv.feature_id).quarter == quarter
         #adds the investment to the list if its not already in there
         @investments.exclude?(inv) ? i = inv.investment : i = 0
         @investments[inv] = i
@@ -35,14 +35,14 @@ module TeamsHelper
     @roadmaps = Hash[ @roadmaps.sort_by {|key, val| key}]
   end
 
-#this function is to sort the team index by selecting quater, or organizing by a few filters
+#this function is to sort the team index by selecting quarter, or organizing by a few filters
   def sorting()
     #makes sure that /a/ quarter is selected
-    @quater = params[:quater]
-    @quater == nil ? @quater = 'Q1' : @quater = @quater
+    @quarter = params[:quarter]
+    @quarter == nil ? @quarter = 'Q1' : @quarter = @quarter
 
-    #REVIEW this is for clearing the teams not in the quater out of teams. Its done 7 times becuase for some reason it doesnt catch all the teams unless if its repeated
-    7.times {@teams.each {|team| team_in_quater(team, @quater) ?  a=0 : @teams.delete(team)}}
+    #REVIEW this is for clearing the teams not in the quarter out of teams. Its done 7 times becuase for some reason it doesnt catch all the teams unless if its repeated
+    7.times {@teams.each {|team| team_in_quarter(team, @quarter) ?  a=0 : @teams.delete(team)}}
 
     if params[:search]
       #REVIEW it does the same thing down here and for every time it iterates, half of the deletes are successful
@@ -80,10 +80,10 @@ module TeamsHelper
     @teams = @teams.paginate(:page => params[:page], :per_page => 15)
   end
 
-  #this is a simple check on whether or not the team is in the selected quater
-  def team_in_quater(team, quater)
+  #this is a simple check on whether or not the team is in the selected quarter
+  def team_in_quarter(team, quarter)
     Investment.where(team_id: team.id).each do |i|
-      if Feature.find(i.feature_id).quater == quater
+      if Feature.find(i.feature_id).quarter == quarter
         return true
       end
     end
@@ -101,7 +101,7 @@ module TeamsHelper
     end
   end
 
-  #this function finds the total investment of a team for that quater
+  #this function finds the total investment of a team for that quarter
   def find_team_values
     #sets the total investments as an empty hash
     team_investments = {}
@@ -112,7 +112,7 @@ module TeamsHelper
       #finds every investment for the team
       Investment.where(team_id: team.id).each do |i|
         #only adds the investment if it is in the selected quarter
-        Feature.find(i.feature_id).quater == @quater ? investment_values += i.investment : a=0
+        Feature.find(i.feature_id).quarter == @quarter ? investment_values += i.investment : a=0
       end
       team_investments[team.id] = investment_values
     end
@@ -124,7 +124,7 @@ module TeamsHelper
     teams.each do |team, value|
       good = false
       Investment.where(team_id: team.id).each do |inv|
-        if Feature.find(inv.feature_id).quater == @quater
+        if Feature.find(inv.feature_id).quarter == @quarter
           fname = Feature.find(inv.feature_id).name.upcase
           iname = Initiative.find(Feature.find(inv.feature_id).initiative_id).name.upcase
           rname = Roadmap.find(Initiative.find(Feature.find(inv.feature_id).initiative_id).roadmap_id).name.upcase

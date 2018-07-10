@@ -1,14 +1,14 @@
 <p id="notice"><%= notice %></p>
 
-<% @quater == nil ? @quater = 'Q1' : @quater = @quater %>
+<% @quarter == nil ? @quarter = 'Q1' : @quarter = @quarter %>
 <div class="dropdown">
-<button onclick="dropButton(1)" class="btn btn-lg btn-success">Quater</button>
+<button onclick="dropButton(1)" class="btn btn-lg btn-success">Quarter</button>
   <div id="dropbox1" class="dropdown-content">
     <input type="text" placeholder="Search.." id="myInput" onkeyup="filterFunction()">
-    <%= link_to 'Q1 2018', team_path(:quater => 'Q1') %>
-    <%= link_to 'Q2 2018', team_path(:quater => 'Q2') %>
-    <%= link_to 'Q3 2018', team_path(:quater => 'Q3') %>
-    <%= link_to 'Q4 2018', team_path(:quater => 'Q4') %>
+    <%= link_to 'Q1 2018', team_path(:quarter => 'Q1') %>
+    <%= link_to 'Q2 2018', team_path(:quarter => 'Q2') %>
+    <%= link_to 'Q3 2018', team_path(:quarter => 'Q3') %>
+    <%= link_to 'Q4 2018', team_path(:quarter => 'Q4') %>
   </div>
 </div>
 
@@ -25,7 +25,7 @@
   <% feats = [] %>
   <% Investment.where(team_id: @team.id).find_each do |n|%>
     <% feat = n.feature_id %>
-    <% if Feature.find_by(id: feat).quater == @quater %>
+    <% if Feature.find_by(id: feat).quarter == @quarter %>
       <% feats += [Feature.find_by(id: feat)] %>
       <% resourcesValue += n.investment %>
     <% end %>

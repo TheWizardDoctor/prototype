@@ -16,7 +16,7 @@ ActiveRecord::Schema.define(version: 2018_07_03_162315) do
     t.string "name"
     t.text "description"
     t.integer "initiative_id"
-    t.string "quater", default: "Q1"
+    t.string "quarter", default: "Q1"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.string "team_type"

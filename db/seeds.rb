@@ -24,7 +24,7 @@ z = 0
       y += 1
       feat = Faker::StarWars.droid
       feat_desc = "This is Feature #{feat}. " + Faker::StarWars.quote
-      Feature.create!(name: feat, description: feat_desc, initiative_id: x, quater: "Q#{rand(1..4)}")
+      Feature.create!(name: feat, description: feat_desc, initiative_id: x, quarter: "Q#{rand(1..4)}")
       z += 1
       team = Faker::StarWars.character
       team_desc = Faker::StarWars.quote

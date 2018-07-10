@@ -1,9 +1,9 @@
-// this funciton is for the dropdown buttons like quater change or ascending/descending filters
+// this funciton is for the dropdown buttons like quarter change or ascending/descending filters
 function dropButton(i) {
     document.getElementById("dropbox"+i).classList.toggle("show");
 }
 
-// this function is a search funtion for the quater button
+// this function is a search funtion for the quarter button
 // REVIEW 
 function filterFunction() {
     var input, filter, ul, li, a, i;

@@ -10,7 +10,7 @@
 <!-- These buttons sort the features -->
 <%= render "sorting_button", var: 'Name' %>
 <%= render "sorting_button", var: 'Initiative' %>
-<%= render "sorting_button", var: 'Quater' %>
+<%= render "sorting_button", var: 'quarter' %>
 <br>
 <h1>Features</h1>
 <div class="left_area">
@@ -47,7 +47,7 @@
       <br>
     <%end%>
     </div>
-    <div class="filler"> <h4 class="center">Quater</h4> <%= feature.quater %> </div>
+    <div class="filler"> <h4 class="center">quarter</h4> <%= feature.quarter %> </div>
     <div class="filler"> <h4 class="center">Created/Updated</h4> <%= feature.created_at %>/<%= feature.updated_at %> </div>
     <div class="filler"> <h4 class="center">Scope</h4> <%= feature.scope %> </div>
     <div class="filler"> <h4 class="center">Owner</h4> <%= feature.owner %> </div>
