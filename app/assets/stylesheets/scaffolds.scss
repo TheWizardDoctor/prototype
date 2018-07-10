@@ -20,24 +20,20 @@ pre {
 }
 
 a {
-  text-decoration: underline;
-  &:link {
-    color: blue;
-  }
+  color: blue;
+
   &:visited {
     color: purple;
   }
+
   &:hover {
-    color: darkgreen;
+    color: green;
+    text-decoration: none;
   }
 }
 
-table {
-  width: 100%;
-}
-
 th {
-  padding: 5px;
+  padding-bottom: 5px;
 }
 
 td {
